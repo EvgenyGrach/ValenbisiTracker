@@ -11,3 +11,4 @@ polyline
 fuzzywuzzy
 streamlit_folium
 streamlit_js_eval
+bokehstreamlit_bokeh_events

@@ -17,6 +17,9 @@ from polyline import decode
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import polyline
+from bokeh.models.widgets import Button
+from bokeh.models import CustomJS
+from streamlit_bokeh_events import streamlit_bokeh_events
 
 
 
@@ -113,44 +116,34 @@ def search_location(name):
     else: 
         return None
 
-js_code = """
-    <script>
-    navigator.geolocation.getCurrentPosition((position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        const accuracy = position.coords.accuracy;
-        const altitude = position.coords.altitude;
-        const altitudeAccuracy = position.coords.altitudeAccuracy;
 
-        const locationData = {
-            latitude: latitude,
-            longitude: longitude,
-            accuracy: accuracy,
-            altitude: altitude,
-            altitudeAccuracy: altitudeAccuracy
-        };
-
-        // Send the location data back to the Streamlit app
-        Streamlit.sendMessage(locationData);
-    });
-    </script>
-    """
-
-st.markdown(js_code, unsafe_allow_html=True)
-@st.cache(allow_output_mutation=True)
-def on_message(message):
-    location_data = message["data"]
-    latitud = location_data["latitude"]
-    longitud = location_data["longitude"]
-    accuracy = location_data["accuracy"]
 
 def show_secondary_page():
     st.title("Localiza tu estacion mas cercana")
+    
+    loc_button = Button(label="Get Location")
+    loc_button.js_on_event("button_click", CustomJS(code="""
+        navigator.geolocation.getCurrentPosition(
+            (loc) => {
+                document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
+            }
+        )
+        """))
+    result = streamlit_bokeh_events(
+        loc_button,
+        events="GET_LOCATION",
+        key="get_location",
+        refresh_on_update=False,
+        override_height=75,
+        debounce_time=0)
 
-    st._legacy_support.on_message(on_message)
+    if result:
+        if "GET_LOCATION" in result:
+            st.write(result.get("GET_LOCATION"))   
+
+     
     # Display the map
     sub = st.text_input('Introuzca la estacion que quiera localizar: ', key = 'user_search')
-    
     if not sub:
         x, y = get_graph()
         map2 = folium.Map()
@@ -198,9 +191,9 @@ def show_secondary_page():
                 map = folium.Map()
                 lati = g
                 longi = h
-                map.fit_bounds([[latitud, longitud], [lati, longi]])
+                map.fit_bounds([[lat, long], [lati, longi]])
 
-                folium.Marker(location=[latitud, longitud], tooltip = "Start", icon = folium.Icon(color = "black", icon_color = '#FFFFFFF')).add_to(map)
+                folium.Marker(location=[lat, long], tooltip = "Start", icon = folium.Icon(color = "black", icon_color = '#FFFFFFF')).add_to(map)
                 folium.Marker(location=[lati, longi], tooltip = "Estacion Destino", icon = folium.Icon(color = "black", icon_color = '#00FFFF')).add_to(map)
 
                 route_geometry = get_route_geometry(lat, long, lati, longi)
