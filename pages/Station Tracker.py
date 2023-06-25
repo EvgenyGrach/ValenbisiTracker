@@ -120,8 +120,10 @@ def mapita():
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     selected_location = st.selectbox('Select a station', bicis_full['address'])
-    st.subheader("Least occupied stations")
-    st.dataframe(bicis_full)
+    if selected_location:
+        localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')]
+        st.subheader("Estacion")
+        st.dataframe(localizacion)
     show_map = True
     if show_map:
         x, y = get_graph()
