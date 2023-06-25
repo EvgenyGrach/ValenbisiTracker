@@ -17,9 +17,7 @@ from polyline import decode
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import polyline
-from bokeh.models.widgets import Button
-from bokeh.models import CustomJS
-from streamlit_bokeh_events import streamlit_bokeh_events
+
 
 
 
@@ -120,26 +118,6 @@ def search_location(name):
 
 def show_secondary_page():
     st.title("Localiza tu estacion mas cercana")
-    button = Button(label="Get Location")
-    
-    button.js_on_event("button_click", CustomJS(code="""
-    navigator.geolocation.getCurrentPosition(
-        (loc) => {
-            document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
-            }
-            )
-            """))
-    result = streamlit_bokeh_events(
-        button,
-        events="GET_LOCATION",
-        key="get_location",
-        refresh_on_update=False,
-        override_height=75,
-        debounce_time=0)
-
-    if result:
-        if "GET_LOCATION" in result:
-            st.write(result.get("GET_LOCATION"))   
 
      
     # Display the map
