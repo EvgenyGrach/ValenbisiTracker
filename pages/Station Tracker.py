@@ -158,6 +158,7 @@ def mapita():
                 popup=selected_location,
                 icon=folium.Icon(color='red')
                 ).add_to(map3)
+            map3.fit_bounds([oeste, este])
             
         f = st.button("Localizarme")
         if f:
@@ -172,7 +173,6 @@ def mapita():
 
     if selected_location:
         folium_static(map3)
-        map3.fit_bounds([oeste, este])
     else:
         folium_static(map)
 
