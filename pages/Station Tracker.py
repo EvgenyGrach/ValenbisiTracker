@@ -153,10 +153,11 @@ def mapita():
             map3 = folium.Map()
             selected_lat = bicis_full.loc[bicis_full['address'] == selected_location, 'Latitude']
             selected_long = bicis.loc[bicis['address'] == selected_location, 'Longitude']
+            icon_color = get_icon_color(selected_location['available'])
             folium.Marker(
                 location=[selected_lat, selected_long],
                 popup=selected_location,
-                icon=folium.Icon(color='red')
+                icon=folium.Icon(color=icon_color)
                 ).add_to(map3)
             map3.fit_bounds([oeste, este])
             
