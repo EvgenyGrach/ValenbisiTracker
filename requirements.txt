@@ -1,0 +1,13 @@
+default-jre-headless
+pandas
+geopandas
+streamlit
+folium
+shapely.geometry
+requests
+json
+osmnx
+network
+goecoder
+polyline
+fuzzywuzzy
