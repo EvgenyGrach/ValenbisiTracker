@@ -147,9 +147,10 @@ def on_message(message):
 def show_secondary_page():
     st.title("Localiza tu estacion mas cercana")
 
-    st.subscribe(on_message)
+    st._legacy_support.on_message(on_message)
     # Display the map
     sub = st.text_input('Introuzca la estacion que quiera localizar: ', key = 'user_search')
+    
     if not sub:
         x, y = get_graph()
         map2 = folium.Map()
