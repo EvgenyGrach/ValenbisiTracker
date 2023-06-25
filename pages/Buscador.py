@@ -123,12 +123,12 @@ def show_secondary_page():
     
     loc_button = st.button(label="Get Location")
     loc_button.js_on_event("button_click", CustomJS(code="""
-        navigator.geolocation.getCurrentPosition(
-            (loc) => {
-                document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
+    navigator.geolocation.getCurrentPosition(
+        (loc) => {
+            document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
             }
-        )
-        """))
+            )
+            """))
     result = streamlit_bokeh_events(
         loc_button,
         events="GET_LOCATION",
