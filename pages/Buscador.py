@@ -120,9 +120,9 @@ def search_location(name):
 
 def show_secondary_page():
     st.title("Localiza tu estacion mas cercana")
+    button = Button(label="Get Location")
     
-    loc_button = st.button(label="Get Location")
-    loc_button.js_on_event("button_click", CustomJS(code="""
+    button.js_on_event("button_click", CustomJS(code="""
     navigator.geolocation.getCurrentPosition(
         (loc) => {
             document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
@@ -130,7 +130,7 @@ def show_secondary_page():
             )
             """))
     result = streamlit_bokeh_events(
-        loc_button,
+        button,
         events="GET_LOCATION",
         key="get_location",
         refresh_on_update=False,
