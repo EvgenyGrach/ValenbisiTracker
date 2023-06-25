@@ -10,3 +10,4 @@ geocoder
 polyline
 fuzzywuzzy
 streamlit_folium
+streamlit_js_eval
