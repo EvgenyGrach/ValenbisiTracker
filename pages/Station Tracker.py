@@ -172,6 +172,7 @@ def mapita():
 
     if selected_location:
         folium_static(map3)
+        map3.fit_bounds([oeste, este])
     else:
         folium_static(map)
 
