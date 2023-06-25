@@ -152,7 +152,7 @@ def mapita():
             localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
             st.subheader("Estacion")
             st.dataframe(localizacion)
-            icon_color = get_icon_color(localizacion['available'])
+            icon_color = get_icon_color(localizacion['available'].item())
             folium.Marker(
                 location=[selected_lat, selected_long],
                 popup=selected_location,
