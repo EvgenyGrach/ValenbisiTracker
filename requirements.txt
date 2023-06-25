@@ -1,9 +1,9 @@
+streamlit
 default-jre-headless
 pandas
 geopandas
-streamlit
 folium
-shapely.geometry
+shapely
 requests
 json
 osmnx
