@@ -9,3 +9,4 @@ network
 geocoder
 polyline
 fuzzywuzzy
+streamlit_folium
