@@ -121,7 +121,7 @@ def search_location(name):
 def show_secondary_page():
     st.title("Localiza tu estacion mas cercana")
     
-    loc_button = st.Button(label="Get Location")
+    loc_button = st.button(label="Get Location")
     loc_button.js_on_event("button_click", CustomJS(code="""
         navigator.geolocation.getCurrentPosition(
             (loc) => {
