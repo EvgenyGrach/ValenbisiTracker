@@ -6,6 +6,6 @@ shapely
 requests
 osmnx
 network
-goecoder
+geocoder
 polyline
 fuzzywuzzy
