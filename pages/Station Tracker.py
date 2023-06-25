@@ -121,7 +121,7 @@ def mapita():
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     selected_location = st.selectbox('Select a station', bicis_full['address'])
     if selected_location:
-        localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')]
+        localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
         st.subheader("Estacion")
         st.dataframe(localizacion)
     show_map = True
