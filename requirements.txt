@@ -4,7 +4,6 @@ geopandas
 folium
 shapely
 requests
-json
 osmnx
 network
 goecoder
