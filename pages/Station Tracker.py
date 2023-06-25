@@ -113,6 +113,8 @@ def search_location(name):
         return None
 
 
+
+
 def mapita():
     st.title("Disponibilidad Valenbici")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
