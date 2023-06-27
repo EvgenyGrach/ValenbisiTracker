@@ -125,13 +125,12 @@ def mapita():
         selected_location = st.selectbox('Select a station', bicis_full['address'])
     show_map = True
     f = st.checkbox("Find me")
-    if f:
+    if f and show_map:
         loc = get_geolocation()
         latc = loc['coords']['latitude']
         longc = loc['coords']['longitude']
         m = reverse_geocode(latc, longc)
         st.write(f"Your location is: {m}")
-    if show_map:
         x, y = get_graph()
         map = folium.Map()
         plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map)
