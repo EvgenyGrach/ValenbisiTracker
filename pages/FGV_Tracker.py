@@ -47,6 +47,7 @@ def emt_vlc(response):
     return df2
 
 estaciones = emt_vlc(req)
+ests = estaciones
 oeste = estaciones[['Latitude', 'Longitude']].min().values.tolist()
 este = estaciones[['Latitude', 'Longitude']].max().values.tolist()
 
@@ -108,8 +109,8 @@ def show_third_page():
                     icon=folium.Icon(color = 'red')
                 ).add_to(map5)
             map5.fit_bounds([oeste, este])
-            y =folium_static(map5)
-            c1.map(y)
+            folium_static(map5)
+            
         else:
             map6 = folium.Map()
             plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map6)
@@ -117,6 +118,17 @@ def show_third_page():
                 nam = search_location(text)
                 nam = list(nam)
                 z, g, h, horas = nam
+                est_selec = estaciones.loc[(estaciones['nombre'] == z), ('nombre', 'lineas' )]
+                lines_selec = str(estaciones.loc[(estaciones['nombre'] == z), ('prox_llegadas')])
+                lines_selec = get_horarios(lines_selec)
+                final = []
+                for i in lines_selec:
+                    nombre = i[0]
+                    destino = i[1]
+                    hora = i[2]
+                    final.append((nombre, destino, hora))
+                final_est = pd.DataFrame(final, ('Estacion', 'Linea Destino', 'Hora'))
+
                 if g and h != None:
                     horario = get_horarios(horas)
                     for i in horario:
@@ -142,7 +154,9 @@ def show_third_page():
                             geom.append([n,i])
                             linea = folium.PolyLine([geom], color = 'red', weight = 3)
                             linea.add_to(map6)
-                map6.fit_bounds([oeste, este])        
+                map6.fit_bounds([oeste, este])
+                c1.dataframe(est_selec)
+                c2.dataframe(final_est)       
                 folium_static(map6)
     else:
         st.write("Esperando ubicacion......")
