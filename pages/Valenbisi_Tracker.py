@@ -139,10 +139,18 @@ def mapita():
             selected_long = bicis.loc[bicis['address'] == selected_location, 'Longitude']
             localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
             localizacion1 = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
+            selected_lat = localizacion.loc[localizacion['address'] == selected_location, 'Latitude']
+            selected_long = localizacion.loc[localizacion['address'] == selected_location, 'Longitude']
             st.subheader("Estacion")
             st.dataframe(localizacion1)
             icon_color = get_icon_color(localizacion['available'].item())
-            
+            route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
+            gh = []
+            for i,n in route_geometry:
+                gh.append([n,i])
+            linea = folium.PolyLine([gh], color = 'blue', weight = 3)
+            linea.add_to(map3)
+
             folium.Marker(
                 location=[selected_lat, selected_long],
                 popup=selected_location,
@@ -156,14 +164,8 @@ def mapita():
                 icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
             ).add_to(map3)
             
-            route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
-            gh = []
-            for i,n in route_geometry:
-                gh.append([n,i])
-            linea = folium.PolyLine([gh], color = 'blue', weight = 3)
-            linea.add_to(map3)
         if not f:
-            st.write("We nee to find you!")
+            st.write("We need to find you!")
         map3.fit_bounds([oeste, este])
         folium_static(map3)
     
