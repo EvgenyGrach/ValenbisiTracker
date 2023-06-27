@@ -127,8 +127,7 @@ def mapita():
         selected_location = st.selectbox('Select a station', bicis_full['address'])
         show_map = True
         if f and show_map and selected_location:
-            loc = get_geolocation()
-            st.write(loc)
+            loc = get_geolocation(
             latc = loc['coords']['latitude']
             longc = loc['coords']['longitude']
             m = reverse_geocode(latc, longc)
@@ -136,13 +135,14 @@ def mapita():
             x, y = get_graph()
             localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
             localizacion1 = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
-            selected_lat = localizacion.loc[localizacion['address'] == selected_location, 'Latitude']
+            
+            selected_lat = localizacion.loc[localizacion['address'] == selected_location, 'Latitude', 'Longitude']
             selected_long = localizacion.loc[localizacion['address'] == selected_location, 'Longitude']
             st.subheader("Estacion")
             st.dataframe(localizacion1)
             icon_color = get_icon_color(localizacion['available'].item())
             selected_lat = list(selected_lat)
-            st.write(type(selected_lat))
+            st.write(selected_lat)
             selected_lat = selected_lat
             selected_long = list(selected_long)
             selected_long = selected_long
