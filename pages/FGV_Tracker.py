@@ -143,7 +143,8 @@ def show_third_page():
                             linea.add_to(map6)
                 map6.fit_bounds([oeste, este])        
                 folium_static(map6)
-
+    else:
+        st.write("Esperando ubicacion......")
 
 
 
