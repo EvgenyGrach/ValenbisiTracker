@@ -16,6 +16,7 @@ import geocoder
 from polyline import decode
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
+from sympy import O
 from pages.Finder import show_secondary_page
 from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
 
@@ -141,7 +142,10 @@ def mapita():
             st.subheader("Estacion")
             st.dataframe(localizacion1)
             icon_color = get_icon_color(localizacion['available'].item())
-            st.write(selected_lat, selected_long)
+            selected_lat = list(selected_lat)
+            selected_lat = selected_lat[O]
+            selected_long = list(selected_long)
+            selected_long = selected_long[0]
             route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
             gh = []
             for i,n in route_geometry:
