@@ -16,7 +16,7 @@ import geocoder
 from polyline import decode
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
-from pages.Buscador import show_secondary_page
+from pages.Finder import show_secondary_page
 
 
 

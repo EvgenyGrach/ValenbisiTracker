@@ -123,7 +123,7 @@ def show_secondary_page():
     
     y = st.checkbox("Find me")
     # Display the map
-    sub = st.text_input('Introuzca la estacion que quiera localizar: ', key = 'user_search')
+    sub = st.text_input('Search for a Valenbisi Station ', key = 'user_search')
     if not sub:
         x, y = get_graph()
         map2 = folium.Map()

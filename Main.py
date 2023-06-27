@@ -1,7 +1,7 @@
 
 from pages.Valenbisi_Tracker import mapita
 import streamlit as st
-from pages.Buscador import show_secondary_page
+from pages.Finder import show_secondary_page
 from pages.FGV_Tracker import show_third_page
 
 st.set_page_config(
