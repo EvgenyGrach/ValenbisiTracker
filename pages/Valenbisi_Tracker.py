@@ -138,11 +138,11 @@ def mapita():
             
             selected_lat = localizacion.loc[localizacion['address'] == selected_location, ('Latitude', 'Longitude')]
             selected_long = localizacion.loc[localizacion['address'] == selected_location, 'Longitude']
+            st.write(selected_lat)
             st.subheader("Estacion")
             st.dataframe(localizacion1)
             icon_color = get_icon_color(localizacion['available'].item())
             selected_lat = list(selected_lat)
-            st.write(selected_lat)
             selected_lat = selected_lat
             selected_long = list(selected_long)
             selected_long = selected_long
