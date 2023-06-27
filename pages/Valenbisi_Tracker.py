@@ -121,6 +121,7 @@ def mapita():
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     selected_location = st.selectbox('Select a station', bicis_full['address'])
     show_map = True
+    f = st.checkbox("Find me")
     if show_map:
         x, y = get_graph()
         map = folium.Map()
@@ -160,7 +161,6 @@ def mapita():
                 ).add_to(map3)
             map3.fit_bounds([oeste, este])
             
-        f = st.checkbox("Find me")
         if f:
             loc = get_geolocation()
             latc = loc['coords']['latitude']
