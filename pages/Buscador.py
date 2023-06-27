@@ -117,7 +117,7 @@ def search_location(name):
 
 
 def show_secondary_page():
-    st.title("Localiza tu estacion mas cercana")
+    
 
      
     # Display the map
@@ -194,7 +194,7 @@ def show_secondary_page():
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     st.dataframe(bicis_full)
         
-
+st.set_page_config(page_title="Valenbisi Tracker", page_icon="📈")
 show_secondary_page()
 
 
