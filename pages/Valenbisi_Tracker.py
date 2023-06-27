@@ -155,7 +155,7 @@ def mapita():
             else: pass
             map.fit_bounds([oeste, este])
 
-        if permit:
+        if selected_location:
             map3 = folium.Map()
             selected_lat = bicis_full.loc[bicis_full['address'] == selected_location, 'Latitude']
             selected_long = bicis.loc[bicis['address'] == selected_location, 'Longitude']
