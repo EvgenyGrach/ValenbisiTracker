@@ -98,7 +98,8 @@ def search_location(name):
         return None
 
 def show_third_page():
-    st.write("Habilite la geolocalizacion para encontrar una estacion")
+    st.title("Find your FGV station")
+    st.write("Location i needed to display a route")
     if st.checkbox("Check my location"):
         loc = get_geolocation()
         latc = loc['coords']['latitude']
