@@ -125,7 +125,8 @@ def show_third_page():
                 <span style="font-weight:bold;">H. Salida:</span> {salida}
                 """
                 folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
-        folium_static(map6)
+
+    folium_static(map6)
 
 
 
@@ -136,5 +137,5 @@ def show_third_page():
 
 
 
-if __name__ == '__show_third_page__':
-    show_third_page()
+
+show_third_page()
