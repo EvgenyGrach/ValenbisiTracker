@@ -127,7 +127,7 @@ def mapita():
         selected_location = st.selectbox('Select a station', bicis_full['address'])
         show_map = True
         if f and show_map and selected_location:
-            loc = get_geolocation(
+            loc = get_geolocation()
             latc = loc['coords']['latitude']
             longc = loc['coords']['longitude']
             m = reverse_geocode(latc, longc)
