@@ -7,7 +7,7 @@ from pages.FGV_Tracker import show_third_page
 
 def main():
     # Navigation menu
-    st.title("Valenbisi Fast Tracker")
+    
     st.set_page_config(
     page_title="FGV/Valenbisi Tracker",
     page_icon="👋",
