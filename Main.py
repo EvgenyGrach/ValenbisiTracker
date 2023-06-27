@@ -12,19 +12,23 @@ st.title("FGV/Valenbisi Fast Tracker")
 f = f"""
     <span style="font-weight:bold;">Real Time information on FGV and Valenbisi Stations</span>
     """
-
+col1, col2 = st.columns(2)
 st.write(f, unsafe_allow_html=True)
 st.write("__________________________________________________________________________________")
-c1, c2 = st.columns(2)
+
 f = f"""
     <span style="fomt-weight:bold;">Check info on FGV Stations at</span><br>
     <span> FGV Tracker</span>
     """
+
 c = f"""
     <span style="fomt-weight:bold;">Check info on Valenbisi  at</span><br>
     <span> Valenbisi Tracker</span>
     """
-f = st.write(f, unsafe_allow_html=True)
-c1.text(f)
-c = st.write(c, unsafe_allow_html=True)
-c1.text(c)
+
+with col1:
+    st.write(f, unsafe_allow_html=True)
+
+with col2:
+    st.write(c, unsafe_allow_html=True)
+
