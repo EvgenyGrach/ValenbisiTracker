@@ -16,7 +16,6 @@ import geocoder
 from polyline import decode
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
-from pages.Finder import show_secondary_page
 from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
 
 
