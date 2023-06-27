@@ -10,7 +10,7 @@ def main():
     
     st.set_page_config(
     page_title="FGV/Valenbisi Tracker",
-    page_icon="👋",
+    page_icon="👋"
 )
    
 
