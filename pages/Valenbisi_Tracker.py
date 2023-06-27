@@ -174,7 +174,6 @@ def mapita():
         folium_static(map3)
     
     
-    
     if not permit:
         x, y = get_graph()
         map2 = folium.Map()
