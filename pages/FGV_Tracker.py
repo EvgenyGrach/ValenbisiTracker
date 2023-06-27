@@ -82,7 +82,7 @@ def show_third_page():
     if st.checkbox("Check my location"):
         loc = get_geolocation()
         latc = loc['coords']['latitude']
-        longc = loc['coord'['longitude']]
+        longc = loc['coords']['longitude']
         st.write(f"Your coordinates are {latc, longc}")
     text = st.text_input("Busque una estacion :", key = 'user_input')
     if not text:
