@@ -122,6 +122,7 @@ def mapita():
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Check to display selector")
     f = st.checkbox("Find me")
+    map3 = folium.Map()
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
         show_map = True
@@ -134,7 +135,6 @@ def mapita():
             st.write(f"Your location is: {m}")
             x, y = get_graph()
 
-            map3 = folium.Map()
             selected_lat = bicis_full.loc[bicis_full['address'] == selected_location, 'Latitude']
             selected_long = bicis.loc[bicis['address'] == selected_location, 'Longitude']
             localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
