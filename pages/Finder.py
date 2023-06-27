@@ -187,16 +187,15 @@ def show_secondary_page():
             else:
                 st.write("no hemos encontrado na")
                 st.error("Location not found.")
-        with c1:
-            folium_static(map)
+        
+        folium_static(map)
         map.fit_bounds([[latc, longc], [lati, longi]])
         
         
     st.subheader("Least occupied stations")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    with c2:
-        st.dataframe(bicis_full)
+    st.dataframe(bicis_full)
         
 
 show_secondary_page()
