@@ -23,7 +23,7 @@ from bs4 import BeautifulSoup
 from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
 
 
-st.set_page_config(page_title="FGV Tracker", page_icon="📈")
+st.set_page_config(page_title="FGV Tracker")
 req = requests.get('https://valencia.opendatasoft.com/api/records/1.0/search/?dataset=fgv-bocas&q=&rows=187')
 
 
@@ -92,7 +92,6 @@ def search_location(name):
         return None
 
 def show_third_page():
-    c1, c2 = st.columns(2)
     st.write("Habilite la geolocalizacion para encontrar una estacion")
     if st.checkbox("Check my location"):
         loc = get_geolocation()
@@ -156,10 +155,11 @@ def show_third_page():
                             geom.append([n,i])
                             linea = folium.PolyLine([geom], color = 'red', weight = 3)
                             linea.add_to(map6)
-                map6.fit_bounds([oeste, este])
-                c1.dataframe(est_selec)
-                c2.dataframe(final_est)       
+                map6.fit_bounds([oeste, este])    
                 folium_static(map6)
+                c1, c2 = st.columns(2)
+                c1.dataframe(est_selec)
+                c2.dataframe(final_est)  
     else:
         st.write("Esperando ubicacion......")
         map5 = folium.Map()
