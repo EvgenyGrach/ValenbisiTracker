@@ -47,7 +47,8 @@ def emt_vlc(response):
     return df2
 
 estaciones = emt_vlc(req)
-
+oeste = estaciones[['Latitude', 'Longitude']].min().values.tolist()
+este = estaciones[['Latitude', 'Longitude']].max().values.tolist()
 
 @st.cache_data
 def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
@@ -105,7 +106,7 @@ def show_third_page():
                 tooltip=row['nombre'],
                 icon=folium.Icon(color = 'red')
             ).add_to(map5)
-
+        map5.fit_bounds([oeste, este])
         folium_static(map5)
     else:
         map6 = folium.Map()
@@ -139,8 +140,8 @@ def show_third_page():
                         geom.append([n,i])
                         linea = folium.PolyLine([geom], color = 'red', weight = 3)
                         linea.add_to(map6)
-                    
-    folium_static(map6)
+        map6.fit_bounds([oeste, este])        
+        folium_static(map6)
 
 
 
