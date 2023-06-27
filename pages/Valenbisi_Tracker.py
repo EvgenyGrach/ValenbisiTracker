@@ -190,8 +190,14 @@ def mapita():
                 tooltip = "There's you!",
                 icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
             ).add_to(map3)
+            route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
+            gh = []
+            for i,n in route_geometry:
+                gh.append([n,i])
+                linea = folium.PolyLine([gh], color = 'blue', weight = 3)
+            linea.add_to(map3)
 
-    if selected_location:
+    if selected_location and f:
         folium_static(map3)
     else:
         folium_static(map)
