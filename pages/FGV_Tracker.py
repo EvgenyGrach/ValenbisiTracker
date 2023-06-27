@@ -125,6 +125,7 @@ def show_third_page():
                 final = []
                 for i in lines_selec:
                     i = list(i)
+                    st.write(i)
                     for d in i:
                         st.write(d)
                         nombre = d[0]
