@@ -120,7 +120,7 @@ def search_location(name):
 
 def show_secondary_page():
     
-    
+    st.title("Finder")
     y = st.checkbox("Find me")
     # Display the map
     sub = st.text_input('Search for a Valenbisi Station ', key = 'user_search')
@@ -159,12 +159,9 @@ def show_secondary_page():
         loc = get_geolocation()
         latc = loc['coords']['latitude']
         longc = loc['coords']['longitude']
-        st.write(f"Your coordinates are {latc, longc}")
         folium.GeoJson(y).add_to(map)
-        
-        
         z = reverse_geocode(latc, longc)
-        st.write(f"Your position is : {z}")
+        st.write(f"You're close to:  {z}")
         if sub:
             nam = search_location(sub)
             nam = list(nam)
@@ -177,8 +174,8 @@ def show_secondary_page():
                 longi = h
                 map.fit_bounds([[latc, longc], [lati, longi]])
 
-                folium.Marker(location=[latc, longc], tooltip = "Start", icon = folium.Icon(color = "black", icon_color = '#FFFFFFF')).add_to(map)
-                folium.Marker(location=[lati, longi], tooltip = "Estacion Destino", icon = folium.Icon(color = "black", icon_color = '#00FFFF')).add_to(map)
+                folium.Marker(location=[latc, longc], tooltip = "We found you!", icon = folium.Icon(color = "black", icon_color = '#FFFFFFF')).add_to(map)
+                folium.Marker(location=[lati, longi], tooltip = "Your Destination ", icon = folium.Icon(color = "black", icon_color = '#00FFFF')).add_to(map)
 
                 route_geometry = get_route_geometry(latc, longc, lati, longi)
                 gh = []
