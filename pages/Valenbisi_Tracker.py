@@ -147,7 +147,7 @@ def mapita():
             selected_lat = selected_lat
             selected_long = list(selected_long)
             selected_long = selected_long
-            route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
+            route_geometry = get_route_geometry(latc, longc, latdf, longdf)
             gh = []
             for i,n in route_geometry:
                 gh.append([n,i])
