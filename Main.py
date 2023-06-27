@@ -24,7 +24,7 @@ c = f"""
     <span style="fomt-weight:bold;">Check info on Valenbisi  at</span><br>
     <span> Valenbisi Tracker</span>
     """
-f = st.write(f)
+f = st.write(f, unsafe_allow_html=True)
 c1.text(f)
-c = st.write(c)
+c = st.write(c, unsafe_allow_html=True)
 c1.text(c)
