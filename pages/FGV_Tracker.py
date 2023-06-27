@@ -91,7 +91,7 @@ def search_location(name):
         return None
 
 def show_third_page():
-    
+    c1, c2 = st.columns(2)
     st.write("Habilite la geolocalizacion para encontrar una estacion")
     if st.checkbox("Check my location"):
         loc = get_geolocation()
@@ -108,7 +108,8 @@ def show_third_page():
                     icon=folium.Icon(color = 'red')
                 ).add_to(map5)
             map5.fit_bounds([oeste, este])
-            folium_static(map5)
+            y =folium_static(map5)
+            c1.map(y)
         else:
             map6 = folium.Map()
             plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map6)
