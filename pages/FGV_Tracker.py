@@ -124,6 +124,7 @@ def show_third_page():
                 lines_selec = get_horarios(lines_selec)
                 final = []
                 for i in lines_selec:
+                    st.write(i)
                     for d in i:
                         nombre = d[0]
                         destino = d[1]
