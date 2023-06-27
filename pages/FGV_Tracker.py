@@ -136,9 +136,5 @@ def show_third_page():
 
 
 
-
-# %%
-
-h = get_horarios('https://geoportal.valencia.es/geoportal-services/api/v1/salidas-metro.html?estacion=4&lang=va')
-print(h)
-# %%
+if __name__ == '__show_third_page__':
+    show_third_page()
