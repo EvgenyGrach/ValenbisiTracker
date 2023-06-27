@@ -133,8 +133,8 @@ def mapita():
             m = reverse_geocode(latc, longc)
             st.write(f"Your location is: {m}")
             x, y = get_graph()
-            localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
-            localizacion1 = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
+            localizacion = bicis.loc[bicis['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
+            localizacion1 = bicis.loc[bicis['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
             
             selected_lat = localizacion.loc[localizacion['address'] == selected_location, ('Latitude', 'Longitude')]
             selected_long = localizacion.loc[localizacion['address'] == selected_location, 'Longitude']
