@@ -125,13 +125,10 @@ def show_third_page():
                 final = []
                 for i in lines_selec:
                     i = list(i)
-                    st.write(i)
-                    for d in i:
-                        st.write(d)
-                        nombre = d[0]
-                        destino = d[1]
-                        hora = d[2]
-                        final.append((nombre, destino, hora))
+                    nombre = i[0]
+                    destino = i[1]
+                    hora = i[2]
+                    final.append((nombre, destino, hora))
                 final_est = pd.DataFrame(final, columns =('Estacion', 'Linea Destino', 'Hora'))
 
                 if g and h != None:
