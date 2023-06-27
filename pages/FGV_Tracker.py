@@ -120,7 +120,7 @@ def show_third_page():
                 z, g, h, horas = nam
                 est_selec = estaciones.loc[(estaciones['nombre'] == z), ('nombre', 'lineas' )]
                 lines_selec = estaciones.loc[(estaciones['nombre'] == z), ('prox_llegadas')]
-                lines_selec = str(lines_selec.at[0, 0])
+                lines_selec = lines_selec.at[0, 0]
                 lines_selec = get_horarios(lines_selec)
                 final = []
                 for i in lines_selec:
