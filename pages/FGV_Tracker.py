@@ -169,7 +169,6 @@ def show_third_page():
                 c1.dataframe(est_selec)
                 c2.dataframe(final_est)  
     else:
-        st.write("Esperando ubicacion......")
         map5 = folium.Map()
         for _, row in estaciones.iterrows():
             folium.Marker(
