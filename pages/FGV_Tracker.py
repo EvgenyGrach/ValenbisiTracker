@@ -143,12 +143,12 @@ def show_third_page():
                         linea = i[0]
                         destino = i[1]
                         salida = i[2]
-                    tlp_txt = f"""
-                    <span style="font-weight:bold;">Estacion:</span> {z}<br>
-                    <span style="font-weight:bold;">Linea:</span> {linea}<br>
-                    <span style="font-weight:bold;">Destino:</span> {destino}<br>
-                    <span style="font-weight:bold;">H. Salida:</span> {salida}
-                    """
+                        tlp_txt = f"""
+                        <span style="font-weight:bold;">Estacion:</span> {z}<br>
+                        <span style="font-weight:bold;">Linea:</span> {linea}<br>
+                        <span style="font-weight:bold;">Destino:</span> {destino}<br>
+                        <span style="font-weight:bold;">H. Salida:</span> {salida}
+                        """
 
                     st.success("Station found!")
                     st.write("Station: ", z)
