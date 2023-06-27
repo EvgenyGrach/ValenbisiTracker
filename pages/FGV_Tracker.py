@@ -169,6 +169,8 @@ def show_third_page():
                 c1.dataframe(est_selec)
                 c2.dataframe(final_est)  
     else:
+        t = f"""<spa stylee="font-weight:bold;">Station Map</span>"""
+        st.write(t)
         map5 = folium.Map()
         for _, row in estaciones.iterrows():
             folium.Marker(
