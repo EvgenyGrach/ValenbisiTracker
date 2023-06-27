@@ -151,7 +151,6 @@ def mapita():
                    fill_color = "red",
                    icon=folium.Icon(color=icon_color, icon_color='#FFFF00')
                ).add_to(map)
-            else: pass
             map.fit_bounds([oeste, este])
 
         if selected_location:
