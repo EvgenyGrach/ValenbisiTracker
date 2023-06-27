@@ -100,7 +100,7 @@ def search_location(name):
 def show_third_page():
     st.title("Find your FGV station")
     st.write("Location i needed to display a route")
-    if st.checkbox("Check my location"):
+    if st.checkbox("Find me"):
         loc = get_geolocation()
         latc = loc['coords']['latitude']
         longc = loc['coords']['longitude']
@@ -145,8 +145,8 @@ def show_third_page():
                         destino = i[1]
                         salida = i[2]
 
-                    st.success("Estacion encontrada!")
-                    st.write("Estacion: ", z)
+                    st.success("Station found!")
+                    st.write("Station: ", z)
                     lati, longi = g, h
                     tlp_txt = f"""
                     <span style="font-weight:bold;">Estacion:</span> {z}<br>
