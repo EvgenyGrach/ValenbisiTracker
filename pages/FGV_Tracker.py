@@ -119,8 +119,8 @@ def show_third_page():
                 nam = list(nam)
                 z, g, h, horas = nam
                 est_selec = estaciones.loc[(estaciones['nombre'] == z), ('nombre', 'lineas' )]
-                lines_selec = list(estaciones.loc[(estaciones['nombre'] == z), ('nombre' , 'prox_llegadas')])
-                lines_selec = get_horarios(lines_selec[1][0])
+                lines_selec = dict(estaciones.loc[(estaciones['nombre'] == z), ('prox_llegadas')])
+                lines_selec = get_horarios(lines_selec['prox_llegadas'][0])
                 final = []
                 for i in lines_selec:
                     nombre = i[0]
