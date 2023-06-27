@@ -142,7 +142,7 @@ def mapita():
             st.dataframe(localizacion1)
             icon_color = get_icon_color(localizacion['available'].item())
             selected_lat = list(selected_lat)
-            st.write(selected_lat)
+            st.write(type(selected_lat))
             selected_lat = selected_lat
             selected_long = list(selected_long)
             selected_long = selected_long
