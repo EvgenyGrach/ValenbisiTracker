@@ -141,7 +141,7 @@ def show_third_page():
                         geom.append([n,i])
                         linea = folium.PolyLine([geom], color = 'red', weight = 3)
                         linea.add_to(map6)
-        map6.fit_bounds([oeste, este])        
+        map6.fit_bounds([(oeste)-0.02, (este)-0.03])        
         folium_static(map6)
 
 
