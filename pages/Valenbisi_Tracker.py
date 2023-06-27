@@ -116,11 +116,10 @@ def search_location(name):
 
 
 def mapita():
-    st.title("Disponibilidad Valenbici")
+    st.title("Valenbisi Fast tracker")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Check to display selector")
-    permit2 = st.checkbox("Or check here to search for one")
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
     show_map = True

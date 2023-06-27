@@ -32,3 +32,9 @@ with col1:
 with col2:
     st.write(c, unsafe_allow_html=True)
 
+g = f"""
+    <span style="font-weight:bold;">You can also search for a station!</span><br>
+    <span> Just selected Finder</span>
+    """
+st.write(g, unsafe_allow_html=True)
+

@@ -121,7 +121,7 @@ def search_location(name):
 def show_secondary_page():
     
     
-    y = st.checkbox("Encontrarme")
+    y = st.checkbox("Find me")
     # Display the map
     sub = st.text_input('Introuzca la estacion que quiera localizar: ', key = 'user_search')
     if not sub:
