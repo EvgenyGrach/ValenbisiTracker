@@ -143,16 +143,16 @@ def show_third_page():
                         linea = i[0]
                         destino = i[1]
                         salida = i[2]
-
-                    st.success("Station found!")
-                    st.write("Station: ", z)
-                    lati, longi = g, h
                     tlp_txt = f"""
                     <span style="font-weight:bold;">Estacion:</span> {z}<br>
                     <span style="font-weight:bold;">Linea:</span> {linea}<br>
                     <span style="font-weight:bold;">Destino:</span> {destino}<br>
                     <span style="font-weight:bold;">H. Salida:</span> {salida}
                     """
+
+                    st.success("Station found!")
+                    st.write("Station: ", z)
+                    lati, longi = g, h
                     folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
                     folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
                     if latc and longc != None:
