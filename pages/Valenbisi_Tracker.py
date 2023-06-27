@@ -160,13 +160,15 @@ def mapita():
                 ).add_to(map3)
             map3.fit_bounds([oeste, este])
             
-        f = st.button("Localizarme")
+        f = st.checkbox("Find me")
         if f:
-            lat, long = get_user_location()
-            m = reverse_geocode(lat, long)
+            loc = get_geolocation()
+            latc = loc['coords']['latitude']
+            longc = loc['coords']['longitude']
+            m = reverse_geocode(latc, longc)
             st.write(f"Your location is: {m}")
             folium.Marker(
-                location = [lat, long],
+                location = [latc, longc],
                 tooltip = "There's you!",
                 icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
             ).add_to(map)
