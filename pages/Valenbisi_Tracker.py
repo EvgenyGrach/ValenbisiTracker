@@ -141,11 +141,11 @@ def mapita():
             st.subheader("Estacion")
             st.dataframe(localizacion1)
             icon_color = get_icon_color(localizacion['available'].item())
+            st.write(selected_lat, selected_long)
             route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
             gh = []
             for i,n in route_geometry:
                 gh.append([n,i])
-            st.write(gh)
             linea = folium.PolyLine([gh], color = 'blue', weight = 3)
             linea.add_to(map3)
 
