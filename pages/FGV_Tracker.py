@@ -105,7 +105,7 @@ def show_third_page():
         longc = loc['coords']['longitude']
         z = reverse_geocode(latc, longc)
         st.write(f"Your position is {z}")
-        text = st.text_input("Busque una estacion :", key = 'user_input')
+        text = st.text_input("Search for a station :", key = 'user_input')
         if not text:
             map5 = folium.Map()
             for _, row in estaciones.iterrows():
