@@ -143,10 +143,9 @@ def mapita():
             icon_color = get_icon_color(localizacion['available'].item())
             selected_lat = list(selected_lat)
             st.write(selected_lat)
-            selected_lat = selected_lat[0]
-            o
+            selected_lat = selected_lat
             selected_long = list(selected_long)
-            selected_long = selected_long[0]
+            selected_long = selected_long
             route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
             gh = []
             for i,n in route_geometry:
