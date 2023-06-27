@@ -93,7 +93,7 @@ def reverse_geocode(latitude, longitude):
         return None
 
 def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
-    url = f"http://router.project-osrm.org/route/v1/walking/{st_lng},{st_lat};{dest_lng},{dest_lat}?overview=full&geometries=geojson"
+    url = f"http://router.project-osrm.org/route/v1/driving/{st_lng},{st_lat};{dest_lng},{dest_lat}?overview=full&geometries=geojson"
     response = requests.get(url)
     data = response.json()
     if data["code"] == "Ok":
