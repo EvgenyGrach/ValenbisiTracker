@@ -47,7 +47,19 @@ def emt_vlc(response):
     return df2
 
 estaciones = emt_vlc(req)
-print(estaciones)
+
+
+@st.cache_data
+def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
+    url = f"http://router.project-osrm.org/route/v1/driving/{st_lng},{st_lat};{dest_lng},{dest_lat}?overview=full&geometries=geojson"
+    response = requests.get(url)
+    data = response.json()
+    if data["code"] == "Ok":
+        geometry = list(data["routes"][0]["geometry"]['coordinates'])
+        return geometry
+    else:
+        return []
+    
 
 @st.cache_data
 def get_horarios(str):
@@ -119,7 +131,15 @@ def show_third_page():
                 <span style="font-weight:bold;">H. Salida:</span> {salida}
                 """
                 folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
-
+                folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
+                if latc and longc != None:
+                    route_geometry = get_route_geometry(latc, longc, lati, longi)
+                    geom = []
+                    for i, n in route_geometry:
+                        geom.append([n,i])
+                        linea = folium.PolyLine([geom], color = 'red', weight = 3)
+                        linea.add_to(map6)
+                    
     folium_static(map6)
 
 
