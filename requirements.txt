@@ -13,3 +13,4 @@ streamlit_folium
 streamlit_js_eval
 bokeh
 streamlit_bokeh_events
+bs4
