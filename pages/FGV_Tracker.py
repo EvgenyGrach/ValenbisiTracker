@@ -83,20 +83,9 @@ def show_third_page():
     if not text:
         map5 = folium.Map()
         for _, row in estaciones.iterrows():
-            tooltip_txt = get_horarios(row['prox_llegadas'])
-            for i in tooltip_txt:
-                linea = i[0]
-                destino = i[1]
-                salida = i[2]
-            tooltip_t = f"""
-            <span style="font-weight:bold;">Estacion:</span> {row['nombre']}<br>
-            <span style="font-weight:bold;">Linea:</span> {linea}<br>
-            <span style="font-weight:bold;">Destino:</span> {destino}<br>
-            <span style="font-weight:bold;">H. Salida:</span> {salida}
-            """
             folium.Marker(
                 location = [row['Latitude'], row['Longitude']],
-                tooltip=tooltip_t,
+                tooltip=row['nombre'],
                 icon=folium.Icon(color = 'red')
             ).add_to(map5)
 
