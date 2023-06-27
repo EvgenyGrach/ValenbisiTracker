@@ -124,6 +124,10 @@ def show_secondary_page():
     y = st.checkbox("Find me")
     # Display the map
     sub = st.text_input('Search for a Valenbisi Station ', key = 'user_search')
+    st.subheader("Least occupied stations")
+    bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available')]
+    bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
+    st.dataframe(bicis_full)
     if not sub:
         x, y = get_graph()
         map2 = folium.Map()
@@ -191,11 +195,6 @@ def show_secondary_page():
         folium_static(map)
         map.fit_bounds([[latc, longc], [lati, longi]])
         
-        
-    st.subheader("Least occupied stations")
-    bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available')]
-    bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    st.dataframe(bicis_full)
         
 
 show_secondary_page()
