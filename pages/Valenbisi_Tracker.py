@@ -135,7 +135,6 @@ def mapita():
             st.write(f"Your location is: {m}")
             x, y = get_graph()
             localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
-            st.write(localizacion)
             localizacion1 = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
             selected_lat = localizacion.loc[localizacion['address'] == selected_location, 'Latitude']
             selected_long = localizacion.loc[localizacion['address'] == selected_location, 'Longitude']
@@ -146,6 +145,7 @@ def mapita():
             gh = []
             for i,n in route_geometry:
                 gh.append([n,i])
+            st.write(gh)
             linea = folium.PolyLine([gh], color = 'blue', weight = 3)
             linea.add_to(map3)
 
