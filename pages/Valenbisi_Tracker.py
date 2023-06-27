@@ -127,6 +127,7 @@ def mapita():
         show_map = True
         if f and show_map and selected_location:
             loc = get_geolocation()
+            st.write(loc)
             latc = loc['coords']['latitude']
             longc = loc['coords']['longitude']
             m = reverse_geocode(latc, longc)
