@@ -10,7 +10,8 @@ st.set_page_config(
 )
 st.title("FGV/Valenbisi Fast Tracker")
 f = f"""
-    <span style="font-weight:bold;">Real Time information FGV and Valenbisi Stations</span>
+    <span style="font-weight:bold;">Real Time information on FGV and Valenbisi Stations</span>
     """
 
 st.write(f, unsafe_allow_html=True)
+st.write("__________________________________________________________________________________")
