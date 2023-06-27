@@ -120,7 +120,7 @@ def search_location(name):
 def show_secondary_page():
     
 
-     
+    y = st.checkbox()
     # Display the map
     sub = st.text_input('Introuzca la estacion que quiera localizar: ', key = 'user_search')
     if not sub:
@@ -149,7 +149,7 @@ def show_secondary_page():
         folium_static(map2)
 
     
-    else:
+    elif sub and y("Encontrarme"):
         x, y = get_graph()
         map = folium.Map()
         map.fit_bounds([oeste, este])
