@@ -130,7 +130,7 @@ def show_third_page():
                         destino = d[1]
                         hora = d[2]
                         final.append((nombre, destino, hora))
-                final_est = pd.DataFrame(final, ('Estacion', 'Linea Destino', 'Hora'))
+                final_est = pd.DataFrame(final, columns =('Estacion', 'Linea Destino', 'Hora'))
 
                 if g and h != None:
                     horario = get_horarios(horas)
