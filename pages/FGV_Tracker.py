@@ -92,12 +92,13 @@ def search_location(name):
 
 def show_third_page():
     st.title("Buscador de estaciones FGV")
+    st.write("Habilite la geolocalizacion para encontrar una estacion")
     if st.checkbox("Check my location"):
         loc = get_geolocation()
         latc = loc['coords']['latitude']
         longc = loc['coords']['longitude']
         st.write(f"Your coordinates are {latc, longc}")
-    text = st.text_input("Busque una estacion :", key = 'user_input')
+        text = st.text_input("Busque una estacion :", key = 'user_input')
     if not text:
         map5 = folium.Map()
         for _, row in estaciones.iterrows():
