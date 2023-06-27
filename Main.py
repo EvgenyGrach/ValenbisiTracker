@@ -8,3 +8,4 @@ st.set_page_config(
     page_title="FGV/Valenbisi Tracker",
     page_icon="👋"
 )
+st.title("FGV/Valenbisi Fast Tracker")
