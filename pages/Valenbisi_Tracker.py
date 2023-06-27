@@ -119,7 +119,7 @@ def mapita():
     st.title("Disponibilidad Valenbici")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    selected_location = st.selectbox('Select a station', bicis_full['address'], disabled = True)
+    selected_location = st.selectbox('Select a station', bicis_full['address'], index = None)
     show_map = True
     f = st.checkbox("Find me")
     if f:
