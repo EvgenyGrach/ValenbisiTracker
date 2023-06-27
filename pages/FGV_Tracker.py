@@ -172,7 +172,7 @@ def show_third_page():
         t = f"""
         <span style="font-weight:bold;">Station Map</span>
         """
-        st.write(t)
+        st.write(t, unsafe_allow_html=True)
         map5 = folium.Map()
         for _, row in estaciones.iterrows():
             folium.Marker(
