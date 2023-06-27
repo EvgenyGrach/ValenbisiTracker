@@ -169,13 +169,6 @@ def mapita():
                 icon=folium.Icon(color=icon_color)
                 ).add_to(map3)
             map3.fit_bounds([oeste, este])
-            if f:
-                route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
-                gh = []
-                for i,n in route_geometry:
-                    gh.append([n,i])
-                linea = folium.PolyLine([gh], color = 'blue', weight = 3)
-                linea.add_to(map3)
 
             
         if f:
