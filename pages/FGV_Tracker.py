@@ -26,7 +26,13 @@ from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share
 st.set_page_config(page_title="FGV Tracker")
 req = requests.get('https://valencia.opendatasoft.com/api/records/1.0/search/?dataset=fgv-bocas&q=&rows=187')
 
-
+def reverse_geocode(latitude, longitude):
+    g = geocoder.osm([latitude, longitude], method='reverse')
+    if g.ok:
+        return g.address
+    else:
+        return None
+    
 def emt_vlc(response):
     emt = []
     if response.status_code == 200:
@@ -97,7 +103,8 @@ def show_third_page():
         loc = get_geolocation()
         latc = loc['coords']['latitude']
         longc = loc['coords']['longitude']
-        st.write(f"Your coordinates are {latc, longc}")
+        z = reverse_geocode(latc, longc)
+        st.write(f"Your position is {z}")
         text = st.text_input("Busque una estacion :", key = 'user_input')
         if not text:
             map5 = folium.Map()
