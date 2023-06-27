@@ -99,50 +99,50 @@ def show_third_page():
         longc = loc['coords']['longitude']
         st.write(f"Your coordinates are {latc, longc}")
         text = st.text_input("Busque una estacion :", key = 'user_input')
-    if not text:
-        map5 = folium.Map()
-        for _, row in estaciones.iterrows():
-            folium.Marker(
-                location = [row['Latitude'], row['Longitude']],
-                tooltip=row['nombre'],
-                icon=folium.Icon(color = 'red')
-            ).add_to(map5)
-        map5.fit_bounds([oeste, este])
-        folium_static(map5)
-    else:
-        map6 = folium.Map()
-        plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map6)
-        if text:
-            nam = search_location(text)
-            nam = list(nam)
-            z, g, h, horas = nam
-            if g and h != None:
-                horario = get_horarios(horas)
-                for i in horario:
-                    linea = i[0]
-                    destino = i[1]
-                    salida = i[2]
+        if not text:
+            map5 = folium.Map()
+            for _, row in estaciones.iterrows():
+                folium.Marker(
+                    location = [row['Latitude'], row['Longitude']],
+                    tooltip=row['nombre'],
+                    icon=folium.Icon(color = 'red')
+                ).add_to(map5)
+            map5.fit_bounds([oeste, este])
+            folium_static(map5)
+        else:
+            map6 = folium.Map()
+            plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map6)
+            if text:
+                nam = search_location(text)
+                nam = list(nam)
+                z, g, h, horas = nam
+                if g and h != None:
+                    horario = get_horarios(horas)
+                    for i in horario:
+                        linea = i[0]
+                        destino = i[1]
+                        salida = i[2]
 
-                st.success("Estacion encontrada!")
-                st.write("Estacion: ", z)
-                lati, longi = g, h
-                tlp_txt = f"""
-                <span style="font-weight:bold;">Estacion:</span> {z}<br>
-                <span style="font-weight:bold;">Linea:</span> {linea}<br>
-                <span style="font-weight:bold;">Destino:</span> {destino}<br>
-                <span style="font-weight:bold;">H. Salida:</span> {salida}
-                """
-                folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
-                folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
-                if latc and longc != None:
-                    route_geometry = get_route_geometry(latc, longc, lati, longi)
-                    geom = []
-                    for i, n in route_geometry:
-                        geom.append([n,i])
-                        linea = folium.PolyLine([geom], color = 'red', weight = 3)
-                        linea.add_to(map6)
-        map6.fit_bounds([oeste, este])        
-        folium_static(map6)
+                    st.success("Estacion encontrada!")
+                    st.write("Estacion: ", z)
+                    lati, longi = g, h
+                    tlp_txt = f"""
+                    <span style="font-weight:bold;">Estacion:</span> {z}<br>
+                    <span style="font-weight:bold;">Linea:</span> {linea}<br>
+                    <span style="font-weight:bold;">Destino:</span> {destino}<br>
+                    <span style="font-weight:bold;">H. Salida:</span> {salida}
+                    """
+                    folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
+                    folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
+                    if latc and longc != None:
+                        route_geometry = get_route_geometry(latc, longc, lati, longi)
+                        geom = []
+                        for i, n in route_geometry:
+                            geom.append([n,i])
+                            linea = folium.PolyLine([geom], color = 'red', weight = 3)
+                            linea.add_to(map6)
+                map6.fit_bounds([oeste, este])        
+                folium_static(map6)
 
 
 
