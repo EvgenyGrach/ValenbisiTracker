@@ -177,7 +177,7 @@ def mapita():
                 tooltip = "There's you!",
                 icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
             ).add_to(map)
-
+        if f and permit:
             folium.Marker(
                 location = [latc, longc],
                 tooltip = "There's you!",
