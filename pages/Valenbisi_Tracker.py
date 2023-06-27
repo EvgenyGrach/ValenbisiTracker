@@ -98,6 +98,7 @@ def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
     data = response.json()
     if data["code"] == "Ok":
         geometry = data["routes"][0]["geometry"]
+        st.write(geometry)
         decoded_points = decode(geometry)
         return decoded_points
     else:
