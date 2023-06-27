@@ -145,6 +145,15 @@ def show_third_page():
                 folium_static(map6)
     else:
         st.write("Esperando ubicacion......")
+        map5 = folium.Map()
+        for _, row in estaciones.iterrows():
+            folium.Marker(
+                location = [row['Latitude'], row['Longitude']],
+                tooltip=row['nombre'],
+                icon=folium.Icon(color = 'red')
+            ).add_to(map5)
+            map5.fit_bounds([oeste, este])
+        folium_static(map5)
 
 
 
