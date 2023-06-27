@@ -17,6 +17,7 @@ from polyline import decode
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import polyline
+from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
 
 
 
@@ -150,15 +151,19 @@ def show_secondary_page():
 
     
     elif sub and y("Encontrarme"):
+
         x, y = get_graph()
         map = folium.Map()
         map.fit_bounds([oeste, este])
         plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map)
-
+        loc = get_geolocation()
+        latc = loc['coords']['latitude']
+        longc = loc['coords']['longitude']
+        st.write(f"Your coordinates are {latc, longc}")
         folium.GeoJson(y).add_to(map)
-        lat, long = get_user_location()
-        st.write(lat, long)
-        z = reverse_geocode(lat, long)
+        
+        
+        z = reverse_geocode(latc, longc)
         st.write(f"Your position is : {z}")
         if sub:
             nam = search_location(sub)
@@ -170,12 +175,12 @@ def show_secondary_page():
                 map = folium.Map()
                 lati = g
                 longi = h
-                map.fit_bounds([[lat, long], [lati, longi]])
+                map.fit_bounds([[latc, longc], [lati, longi]])
 
-                folium.Marker(location=[lat, long], tooltip = "Start", icon = folium.Icon(color = "black", icon_color = '#FFFFFFF')).add_to(map)
+                folium.Marker(location=[latc, longc], tooltip = "Start", icon = folium.Icon(color = "black", icon_color = '#FFFFFFF')).add_to(map)
                 folium.Marker(location=[lati, longi], tooltip = "Estacion Destino", icon = folium.Icon(color = "black", icon_color = '#00FFFF')).add_to(map)
 
-                route_geometry = get_route_geometry(lat, long, lati, longi)
+                route_geometry = get_route_geometry(latc, longc, lati, longi)
                 gh = []
                 for i,n in route_geometry:
                     gh.append([n,i])
@@ -187,7 +192,7 @@ def show_secondary_page():
                 st.error("Location not found.")
 
         folium_static(map)
-        map.fit_bounds([[lat, long], [lati, longi]])
+        map.fit_bounds([[latc, longc], [lati, longi]])
         
         
     st.subheader("Least occupied stations")
