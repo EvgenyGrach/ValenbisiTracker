@@ -136,7 +136,9 @@ def show_third_page():
                     hora = i[2]
                     final.append((nombre, destino, hora))
                 final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
-
+                
+                st.success("Station found!")
+                st.write("Station: ", z)
                 if g and h != None:
                     horario = get_horarios(horas)
                     for i in horario:
@@ -150,8 +152,6 @@ def show_third_page():
                         <span style="font-weight:bold;">H. Salida:</span> {salida}
                         """
 
-                        st.success("Station found!")
-                        st.write("Station: ", z)
                         lati, longi = g, h
                         folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
                         folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
