@@ -37,4 +37,12 @@ g = f"""
     <span> Just selected Finder</span>
     """
 st.write(g, unsafe_allow_html=True)
+st.write("____________________________________________________________________________________")
+
+evgeny = f"""
+         <span style="font-weight:bold;"> Project by Evgeny Grachev</span><br>
+         <span> Special thanks to Valencia Open Data Project</span>
+        """
+
+st.write(evgeny, unsafe_allow_html=True)
 
