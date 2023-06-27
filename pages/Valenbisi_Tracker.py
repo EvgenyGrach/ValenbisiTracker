@@ -122,6 +122,12 @@ def mapita():
     selected_location = st.selectbox('Select a station', bicis_full['address'], disabled = True)
     show_map = True
     f = st.checkbox("Find me")
+    if f:
+        loc = get_geolocation()
+        latc = loc['coords']['latitude']
+        longc = loc['coords']['longitude']
+        m = reverse_geocode(latc, longc)
+        st.write(f"Your location is: {m}")
     if show_map:
         x, y = get_graph()
         map = folium.Map()
@@ -138,7 +144,7 @@ def mapita():
             icon_color = get_icon_color(row['available'])
             if row['available'] > 0:
                folium.Marker(
-                   location=[row['geo_point_2d'][0], row['geo_point_2d'][1]],
+                   location=[row['Latitude'], row['Longitude']],
                    tooltip=tooltip_txt,
                    fill_color = "red",
                    icon=folium.Icon(color=icon_color, icon_color='#FFFF00')
@@ -160,18 +166,19 @@ def mapita():
                 icon=folium.Icon(color=icon_color)
                 ).add_to(map3)
             map3.fit_bounds([oeste, este])
+
             
         if f:
-            loc = get_geolocation()
-            latc = loc['coords']['latitude']
-            longc = loc['coords']['longitude']
-            m = reverse_geocode(latc, longc)
-            st.write(f"Your location is: {m}")
             folium.Marker(
                 location = [latc, longc],
                 tooltip = "There's you!",
                 icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
             ).add_to(map)
+            folium.Marker(
+                location = [latc, longc],
+                tooltip = "There's you!",
+                icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
+            ).add_to(map3)
 
     if selected_location:
         folium_static(map3)
