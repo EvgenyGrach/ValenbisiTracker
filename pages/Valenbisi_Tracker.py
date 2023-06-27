@@ -121,8 +121,8 @@ def mapita():
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Check to display selector")
+    f = st.checkbox("Find me")
     if permit:
-        f = st.checkbox("Find me")
         selected_location = st.selectbox('Select a station', bicis_full['address'])
         show_map = True
         if f and show_map and selected_location:
@@ -160,6 +160,8 @@ def mapita():
                 gh.append([n,i])
             linea = folium.PolyLine([gh], color = 'blue', weight = 3)
             linea.add_to(map3)
+        if not f:
+            st.write("We nee to find you!")
         map3.fit_bounds([oeste, este])
         folium_static(map3)
     
