@@ -25,7 +25,7 @@ from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share
 st.set_page_config(page_title="Valenbisi Tracker", page_icon="📈")
 place_name = "Valencia, Spain"
 
-
+c1, c2 = st.columns(2)
 @st.cache_resource
 def get_graph():
     graph = ox.graph_from_place(place_name, network_type="drive", simplify=True)
@@ -187,15 +187,16 @@ def show_secondary_page():
             else:
                 st.write("no hemos encontrado na")
                 st.error("Location not found.")
-
-        folium_static(map)
+        with c1:
+            folium_static(map)
         map.fit_bounds([[latc, longc], [lati, longi]])
         
         
     st.subheader("Least occupied stations")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    st.dataframe(bicis_full)
+    with c2:
+        st.dataframe(bicis_full)
         
 
 show_secondary_page()
