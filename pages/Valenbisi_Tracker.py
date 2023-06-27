@@ -121,20 +121,43 @@ def mapita():
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Check to display selector")
     if permit:
+        f = st.checkbox("Find me")
         selected_location = st.selectbox('Select a station', bicis_full['address'])
-    show_map = True
-    f = st.checkbox("Find me")
-    if f and show_map:
-        loc = get_geolocation()
-        latc = loc['coords']['latitude']
-        longc = loc['coords']['longitude']
-        m = reverse_geocode(latc, longc)
-        st.write(f"Your location is: {m}")
-        x, y = get_graph()
-        map = folium.Map()
-        plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map)
-
-        folium.GeoJson(y).add_to(map)
+        show_map = True
+        if f and show_map and selected_location:
+            loc = get_geolocation()
+            latc = loc['coords']['latitude']
+            longc = loc['coords']['longitude']
+            m = reverse_geocode(latc, longc)
+            st.write(f"Your location is: {m}")
+            x, y = get_graph()
+            map = folium.Map()
+            plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map)
+            folium.GeoJson(y).add_to(map)
+            map3 = folium.Map()
+            selected_lat = bicis_full.loc[bicis_full['address'] == selected_location, 'Latitude']
+            selected_long = bicis.loc[bicis['address'] == selected_location, 'Longitude']
+            localizacion = bicis_full.loc[bicis_full['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
+            st.subheader("Estacion")
+            st.dataframe(localizacion)
+            icon_color = get_icon_color(localizacion['available'].item())
+            folium.Marker(
+                location=[selected_lat, selected_long],
+                popup=selected_location,
+                icon=folium.Icon(color=icon_color)
+                ).add_to(map3)
+            map3.fit_bounds([oeste, este])
+            folium.Marker(
+                location = [latc, longc],
+                tooltip = "There's you!",
+                icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
+            ).add_to(map3)
+            route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
+            gh = []
+            for i,n in route_geometry:
+                gh.append([n,i])
+            linea = folium.PolyLine([gh], color = 'blue', weight = 3)
+            linea.add_to(map3)
 
         for _, row in bicis.iterrows():
             tooltip_txt = f"""
