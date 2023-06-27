@@ -174,7 +174,7 @@ def mapita():
                 gh = []
                 for i,n in route_geometry:
                     gh.append([n,i])
-                linea = folium.Polyline([gh], color = 'blue', weight = 3)
+                linea = folium.PolyLine([gh], color = 'blue', weight = 3)
                 linea.add_to(map3)
 
             
