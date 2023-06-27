@@ -150,18 +150,18 @@ def show_third_page():
                         <span style="font-weight:bold;">H. Salida:</span> {salida}
                         """
 
-                    st.success("Station found!")
-                    st.write("Station: ", z)
-                    lati, longi = g, h
-                    folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
-                    folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
-                    if latc and longc != None:
-                        route_geometry = get_route_geometry(latc, longc, lati, longi)
-                        geom = []
-                        for i, n in route_geometry:
-                            geom.append([n,i])
-                            linea = folium.PolyLine([geom], color = 'red', weight = 3)
-                            linea.add_to(map6)
+                        st.success("Station found!")
+                        st.write("Station: ", z)
+                        lati, longi = g, h
+                        folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
+                        folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
+                        if latc and longc != None:
+                            route_geometry = get_route_geometry(latc, longc, lati, longi)
+                            geom = []
+                            for i, n in route_geometry:
+                                geom.append([n,i])
+                                linea = folium.PolyLine([geom], color = 'red', weight = 3)
+                                linea.add_to(map6)
                 map6.fit_bounds([oeste, este])    
                 folium_static(map6)
                 c1, c2 = st.columns(2)
