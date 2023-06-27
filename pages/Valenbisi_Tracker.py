@@ -151,11 +151,11 @@ def mapita():
             gh = []
             for i,n in route_geometry:
                 gh.append([n,i])
-            linea = folium.PolyLine([gh], color = 'blue', weight = 3)
-            linea.add_to(map3)
+                linea = folium.PolyLine([gh], color = 'blue', weight = 3)
+                linea.add_to(map3)
 
             folium.Marker(
-                location=[selected_lat, selected_long],
+                location=[latdf, longdf],
                 popup=selected_location,
                 icon=folium.Icon(color=icon_color)
                 ).add_to(map3)
@@ -169,6 +169,8 @@ def mapita():
             
         if not f:
             st.write("We need to find you!")
+
+
         map3.fit_bounds([oeste, este])
         folium_static(map3)
     
