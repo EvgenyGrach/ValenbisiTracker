@@ -40,9 +40,17 @@ st.write(g, unsafe_allow_html=True)
 st.write("____________________________________________________________________________________")
 
 evgeny = f"""
-         <span style="font-weight:bold;"> Project by Evgeny Grachev</span><br>
-         <span> Special thanks to Valencia Open Data Project</span>
+        <span style="font-weight:bold;"> Project by Evgeny Grachev</span><br>
+        <span> Special thanks to Valencia Open Data Project</span>
         """
+with col1:
+    st.write(evgeny, unsafe_allow_html=True)
 
-st.write(evgeny, unsafe_allow_html=True)
+disclaimer = f"""
+            <span style="font-weight:bold;"> Disclaimer!</span><br>
+            <span> This app uses your geolocation data in order to provide routes</span>
+            """
+
+with col2:
+    st.write(disclaimer, unsafe_allow_html=True)
 
