@@ -20,7 +20,7 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import polyline
 from bs4 import BeautifulSoup
-
+from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
 
 
 
@@ -79,6 +79,9 @@ def search_location(name):
 
 def show_third_page():
     st.title("Buscador de estaciones FGV")
+    if st.checkbox("Check my location"):
+        loc = get_geolocation()
+        st.write(f"Your coordinates are {loc}")
     text = st.text_input("Busque una estacion :", key = 'user_input')
     if not text:
         map5 = folium.Map()
