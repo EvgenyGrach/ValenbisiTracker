@@ -120,6 +120,7 @@ def mapita():
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Check to display selector")
+    permit2 = st.checkbox("Or check here to search for one")
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
     show_map = True
@@ -168,6 +169,13 @@ def mapita():
                 icon=folium.Icon(color=icon_color)
                 ).add_to(map3)
             map3.fit_bounds([oeste, este])
+            if f:
+                route_geometry = get_route_geometry(latc, longc, selected_lat, selected_long)
+                gh = []
+                for i,n in route_geometry:
+                    gh.append([n,i])
+                linea = folium.Polyline([gh], color = 'blue', weight = 3)
+                linea.add_to(map3)
 
             
         if f:
@@ -176,6 +184,7 @@ def mapita():
                 tooltip = "There's you!",
                 icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
             ).add_to(map)
+
             folium.Marker(
                 location = [latc, longc],
                 tooltip = "There's you!",
