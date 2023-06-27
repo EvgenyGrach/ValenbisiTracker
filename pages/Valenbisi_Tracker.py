@@ -119,8 +119,9 @@ def mapita():
     st.title("Disponibilidad Valenbici")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    if st.checkbox("Check to choose a station"):
-        selected_location = st.selectbox('Select a station', bicis_full['address'], index = None)
+    permit = st.checkbox("Check to display selector")
+    if permit:
+        selected_location = st.selectbox('Select a station', bicis_full['address'])
     show_map = True
     f = st.checkbox("Find me")
     if f:
@@ -153,7 +154,7 @@ def mapita():
             else: pass
             map.fit_bounds([oeste, este])
 
-        if selected_location:
+        if selected_location and permit:
             map3 = folium.Map()
             selected_lat = bicis_full.loc[bicis_full['address'] == selected_location, 'Latitude']
             selected_long = bicis.loc[bicis['address'] == selected_location, 'Longitude']
