@@ -33,7 +33,7 @@ with col2:
 
 g = f"""
     <span style="font-weight:bold;">You can also search for a station!</span><br>
-    <span> Just selected Finder</span>
+    <span> Just select Finder</span>
     """
 st.write(g, unsafe_allow_html=True)
 st.write("____________________________________________________________________________________")
@@ -49,7 +49,7 @@ with c1:
 
 disclaimer = f"""
             <span style="font-weight:bold;"> Disclaimer!</span><br>
-            <span> This app uses your geolocation data in order to provide routes</span>
+            <span> This app uses your geolocation data in order to provide personalized routes</span>
             """
 
 with c2:
