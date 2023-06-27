@@ -63,7 +63,7 @@ def get_horarios(str):
             destination = span_elements[2].text.strip()
             destination_f = b_elements[0].text.strip()
             departure_time = span_elements[4].text.strip()
-            kl.append(list(destination, destination_f, departure_time))
+            kl.append((destination, destination_f, departure_time))
     return kl
 
 
