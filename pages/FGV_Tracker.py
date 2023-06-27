@@ -126,6 +126,7 @@ def show_third_page():
                 for i in lines_selec:
                     i = list(i)
                     for d in i:
+                        st.write(d)
                         nombre = d[0]
                         destino = d[1]
                         hora = d[2]
