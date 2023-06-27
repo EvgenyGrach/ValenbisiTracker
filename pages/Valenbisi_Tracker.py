@@ -135,10 +135,11 @@ def mapita():
             x, y = get_graph()
             localizacion = bicis.loc[bicis['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
             localizacion1 = bicis.loc[bicis['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
-            
-            selected_lat = list(localizacion.loc[localizacion['address'] == selected_location, ('Latitude', 'Longitude')])
+            selected_lat = localizacion.loc[localizacion['address'] == selected_location, ('Latitude', 'Longitude')]
+            latdf = selected_lat.loc[0, 'Latitude']
+            longdf = selected_lat.loc[0, 'Longitude']
             selected_long = localizacion.loc[localizacion['address'] == selected_location, 'Longitude']
-            st.write(selected_lat)
+            st.write(latdf, longdf)
             st.subheader("Estacion")
             st.dataframe(localizacion1)
             icon_color = get_icon_color(localizacion['available'].item())
