@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "pages",
+			"path": "../../../../Desktop/AppStreamliy/pages"
+		},
+		{
+			"name": "ValenbisiTracker",
+			"path": ".."
+		},
+		{
+			"name": "AppStream",
+			"path": "../../../../Desktop/AppStreamliy/AppStream"
+		},
+		{
+			"name": "CalleVlc",
+			"path": "../../../../Desktop/AppStreamliy/CalleVlc"
+		}
+	],
+	"settings": {}
+}
