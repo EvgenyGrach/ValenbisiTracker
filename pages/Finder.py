@@ -87,15 +87,7 @@ gdf['geometry'] = gpd.GeoSeries.from_wkt(gdf['geometry'])
 map_center = gdf.geometry.unary_union.centroid
 
 def show_secondary_page():
-    trafico['geometry'] = trafico['coord'].apply(to_linestring)
-    trafico = trafico[trafico['geometry'].notnull()]
-    gdf = gpd.GeoDataFrame(trafico, geometry='coord')
 
-# Convertir las geometrías a objetos shapely
-    gdf['geometry'] = gpd.GeoSeries.from_wkt(gdf['geometry'])
-
-# Crear un mapa centrado en un punto medio de los tramos
-    map_center = gdf.geometry.unary_union.centroid
     map2 = folium.Map(location=[map_center.y, map_center.x], zoom_start=12)
 
 # Definir una función para asignar colores según el valor de 'state'
