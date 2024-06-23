@@ -151,7 +151,7 @@ def mapita():
 
         folium.GeoJson(y).add_to(map2)
 
-        heat_data = [[row['latitude'], row['longitude'], row['available']] for index, row in bicis.iterrows()]
+        heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
         HeatMap(heat_data).add_to(map2)
         st.title("Heatmap de Disponibilidad de Bicicletas en Valencia")
         folium_static(map2, width=700, height=500)
