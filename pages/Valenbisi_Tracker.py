@@ -17,7 +17,7 @@ from polyline import decode
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
-
+import branca.colormap as cm
 
 
 place_name = "Valencia, Spain"
@@ -154,6 +154,11 @@ def mapita():
         heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
         HeatMap(heat_data).add_to(map2)
         st.title("Heatmap de Disponibilidad de Bicicletas en Valencia")
+        colormap = cm.LinearColormap(colors=['blue', 'green', 'yellow', 'orange', 'red'], 
+                             vmin=min(bicis['available']), 
+                             vmax=max(bicis['available']),
+                             caption='Disponibilidad de bicicletas')
+        colormap.add_to(map2)
         folium_static(map2, width=700, height=500)
 
 
