@@ -113,7 +113,7 @@ def mapita():
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Buscar una estación")
     st.write("Si marca la casilla podra buscar estaciones de manera individual y consultar informacion mas detallada")
-    map3 = folium.Map()
+    map3 = folium.Map(location=[39.4699, -0.3763], zoom_start=12)
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
         show_map = True
@@ -138,11 +138,10 @@ def mapita():
                 popup=selected_location,
                 icon=folium.Icon(color=icon_color)
                 ).add_to(map3)
-            map3.fit_bounds([oeste, este])
+            
             
 
 
-        map3.fit_bounds([oeste, este])
         folium_static(map3)
     
     
