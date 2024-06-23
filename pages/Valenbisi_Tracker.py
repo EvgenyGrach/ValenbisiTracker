@@ -146,28 +146,33 @@ def mapita():
     
     if not permit:
         x, y = get_graph()
-        map2 = folium.Map()
-        map2.fit_bounds([oeste, este])
+        map2 = folium.Map(location=[39.4699, -0.3763], zoom_start=14)
         plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map2)
 
         folium.GeoJson(y).add_to(map2)
 
-        for _, row in bicis.iterrows():
-            tooltip_txt = f"""
-            <span style="font-weight:bold;">Dirección:</span> {row['address']}<br>
-            <span style="font-weight:bold;">Total:</span> {row['total']}<br>
-            <span style="font-weight:bold;">Disponibles:</span> {row['available']}
-            """
-            icon_color = get_icon_color(row['available'])
-            if row['available'] > 0:
-               folium.Marker(
-                   location=[row['geo_point_2d'][0], row['geo_point_2d'][1]],
-                   tooltip=tooltip_txt,
-                   fill_color = "red",
-                   icon=folium.Icon(color=icon_color, icon_color='#FFFF00')
-               ).add_to(map2)
-            else: pass
-        folium_static(map2)
+        heat_data = [[row['latitude'], row['longitude'], row['available']] for index, row in bicis.iterrows()]
+        HeatMap(heat_data).add_to(map2)
+        st.title("Heatmap de Disponibilidad de Bicicletas en Valencia")
+        folium_static(map2, width=700, height=500)
+
+
+        #for _, row in bicis.iterrows():
+         #  tooltip_txt = f"""
+          #  <span style="font-weight:bold;">Dirección:</span> {row['address']}<br>
+           # <span style="font-weight:bold;">Total:</span> {row['total']}<br>
+            #<span style="font-weight:bold;">Disponibles:</span> {row['available']}
+           # """
+            #icon_color = get_icon_color(row['available'])
+            #if row['available'] > 0:
+             #  folium.Marker(
+             #      location=[row['geo_point_2d'][0], row['geo_point_2d'][1]],
+             #      tooltip=tooltip_txt,
+             #      fill_color = "red",
+              #     icon=folium.Icon(color=icon_color, icon_color='#FFFF00')
+             #  ).add_to(map2)
+          #  else: pass
+       # folium_static(map2)
 
 
 mapita()
