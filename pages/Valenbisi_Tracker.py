@@ -69,10 +69,7 @@ def get_icon_color(value):
     else:
         return 'green'
 
-    
-bicis = df_respuesta(request)
-oeste = bicis[['Latitude', 'Longitude']].min().values.tolist()
-este = bicis[['Latitude', 'Longitude']].max().values.tolist()
+
 
     
 def reverse_geocode(latitude, longitude):
@@ -109,6 +106,9 @@ def search_location(name):
 def mapita():
     st.title("Valenbisi Fast Tracker")
     st.write("With this tool you'll be able to visualize a Valenbici availability HeatMap")
+    bicis = df_respuesta(request)
+    oeste = bicis[['Latitude', 'Longitude']].min().values.tolist()
+    este = bicis[['Latitude', 'Longitude']].max().values.tolist()
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("You can also search a specific station if you click here")
