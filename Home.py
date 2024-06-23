@@ -30,8 +30,8 @@ with col2:
     st.write(c, unsafe_allow_html=True)
 
 g = f"""
-    <span style="font-weight:bold;">You can also search for a station!</span><br>
-    <span> Just select Finder</span>
+    <span style="font-weight:bold;">Check real-time inormation on traffic density</span><br>
+    <span> Just select Traffic</span>
     """
 st.write(g, unsafe_allow_html=True)
 st.write("____________________________________________________________________________________")
@@ -40,16 +40,9 @@ st.write("______________________________________________________________________
 c1, c2 = st.columns(2)
 evgeny = f"""
         <span style="font-weight:bold;"> Project by Evgeny Grachev</span><br>
-        <span> Special thanks to Valencia Open Data Project</span>
+        <span> Special mention to the Valencia Open Data Project</span>
         """
 with c1:
     st.write(evgeny, unsafe_allow_html=True)
 
-disclaimer = f"""
-            <span style="font-weight:bold;"> Disclaimer!</span><br>
-            <span> This app uses your geolocation data in order to provide personalized routes</span>
-            """
-
-with c2:
-    st.write(disclaimer, unsafe_allow_html=True)
 
