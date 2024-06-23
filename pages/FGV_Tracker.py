@@ -96,6 +96,11 @@ def search_location(name):
         return name, lat, long, hora
     else: 
         return None
+    
+
+def convertir_a_datetime(hora_str):
+    return datetime.strptime(hora_str, "%H:%M:%S")
+
 
 def show_third_page():
     st.title("Find your FGV station")
@@ -131,6 +136,7 @@ def show_third_page():
                 nombre = i[0]
                 destino = i[1]
                 hora = i[2]
+                hora = convertir_a_datetime(hora)
                 hora = hora - hora_actual_formateada
                 final.append((nombre, destino, hora))
             final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
