@@ -95,7 +95,7 @@ def convertir_a_datetime(hora_str):
 
 
 def show_third_page():
-    st.title("Find your FGV station")
+    st.title("Find your Metro Valencia station")
     estaciones = emt_vlc(req)
     ests = estaciones
    
@@ -151,10 +151,10 @@ def show_third_page():
                     destino = i[1]
                     salida = i[2]
                     tlp_txt = f"""
-                    <span style="font-weight:bold;">Estacion:</span> {z}<br>
-                    <span style="font-weight:bold;">Linea:</span> {linea}<br>
-                    <span style="font-weight:bold;">Destino:</span> {destino}<br>
-                    <span style="font-weight:bold;">H. Salida:</span> {salida}
+                    <span style="font-weight:bold;">Station:</span> {z}<br>
+                    <span style="font-weight:bold;">Line:</span> {linea}<br>
+                    <span style="font-weight:bold;">Destination:</span> {destino}<br>
+                    <span style="font-weight:bold;">Departure Time:</span> {salida}
                     """
 
                     lati, longi = g, h
