@@ -33,8 +33,8 @@ def get_graph():
     return graph, street_geometries
 
 
-request = requests.get('https://valencia.opendatasoft.com/api/records/1.0/search/?dataset=valenbisi-disponibilitat-valenbisi-dsiponibilidad&q=&rows=276')
-
+request = requests.get('https://valencia.opendatasoft.com/api/records/1.0/search/?dataset=estat-transit-temps-real-estado-trafico-tiempo-real&q=&rows=376')
+st.write(request)
 
 def df_respuesta(response):
     p = []
