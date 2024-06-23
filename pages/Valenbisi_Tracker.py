@@ -120,17 +120,11 @@ def mapita():
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Check to display selector")
-    f = st.checkbox("Find me")
     map3 = folium.Map()
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
         show_map = True
-        if f and show_map and selected_location:
-            loc = get_geolocation()
-            latc = loc['coords']['latitude']
-            longc = loc['coords']['longitude']
-            m = reverse_geocode(latc, longc)
-            st.write(f"Your location is: {m}")
+        if show_map and selected_location:
             x, y = get_graph()
             localizacion = bicis.loc[bicis['address'] == selected_location, ('address', 'open', 'total', 'available', 'Latitude', 'Longitude')].reset_index(drop = True)
             localizacion1 = bicis.loc[bicis['address'] == selected_location, ('address', 'open', 'total', 'available')].reset_index(drop = True)
@@ -145,12 +139,6 @@ def mapita():
             selected_lat = selected_lat
             selected_long = list(selected_long)
             selected_long = selected_long
-            route_geometry = get_route_geometry(latc, longc, latdf, longdf)
-            gh = []
-            for i,n in route_geometry:
-                gh.append([n,i])
-                linea = folium.PolyLine([gh], color = 'blue', weight = 3)
-                linea.add_to(map3)
 
             folium.Marker(
                 location=[latdf, longdf],
@@ -159,14 +147,6 @@ def mapita():
                 ).add_to(map3)
             map3.fit_bounds([oeste, este])
             
-            folium.Marker(
-                location = [latc, longc],
-                tooltip = "There's you!",
-                icon = folium.Icon(color = "black", icon_color = '#FFFFFF')
-            ).add_to(map3)
-            
-        if not f:
-            st.write("We need to find you!")
 
 
         map3.fit_bounds([oeste, este])
