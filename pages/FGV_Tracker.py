@@ -144,7 +144,7 @@ def show_third_page():
                 hora = hora_actual_formateada - hora
                 st.write(hora)
                 final.append((nombre, destino, hora))
-            final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
+            final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Tiempo para Salida'))
             
             st.success("Station found!")
             st.write("Station: ", z)
