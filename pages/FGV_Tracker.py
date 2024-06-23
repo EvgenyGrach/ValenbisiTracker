@@ -54,6 +54,10 @@ def emt_vlc(response):
 
 zona_horaria_valencia = pytz.timezone('Europe/Madrid')
 
+estaciones = emt_vlc(req)
+ests = estaciones
+
+
 @st.cache_data
 def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
     url = f"http://router.project-osrm.org/route/v1/driving/{st_lng},{st_lat};{dest_lng},{dest_lat}?overview=full&geometries=geojson"
@@ -103,8 +107,7 @@ def show_third_page():
     st.title("Find your FGV station")
     estaciones = emt_vlc(req)
     ests = estaciones
-    oeste = estaciones[['Latitude', 'Longitude']].min().values.tolist()
-    este = estaciones[['Latitude', 'Longitude']].max().values.tolist()
+   
     
     text = st.text_input("Search for a station :", key = 'user_input')
     if not text:
@@ -167,7 +170,7 @@ def show_third_page():
                     folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
                         
                         
-                    map6.fit_bounds([oeste, este])    
+                      
                 folium_static(map6)
                   
             else:
@@ -182,7 +185,7 @@ def show_third_page():
                tooltip=row['nombre'],
                icon=folium.Icon(color = 'red')
                ).add_to(map5)
-               map5.fit_bounds([oeste, este])
+               
                folium_static(map5)
 
 
