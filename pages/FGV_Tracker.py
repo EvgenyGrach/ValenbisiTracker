@@ -20,6 +20,7 @@ from fuzzywuzzy import process
 import polyline
 from bs4 import BeautifulSoup
 from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
+from datetime import datetime
 
 
 st.set_page_config(page_title="FGV Tracker")
@@ -123,11 +124,13 @@ def show_third_page():
             lines_selec = lines_selec[0]
             lines_selec = get_horarios(lines_selec)
             final = []
+            hora_actual = datetime.now().time()
+            hora_actual_formateada = hora_actual.strftime("%H:%M:%S")
             for i in lines_selec:
                 i = list(i)
                 nombre = i[0]
                 destino = i[1]
-                hora = i[2]
+                hora = i[2] - hora_actual_formateada
                 final.append((nombre, destino, hora))
             final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
                 
