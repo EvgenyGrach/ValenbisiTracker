@@ -108,9 +108,11 @@ def search_location(name):
 
 def mapita():
     st.title("Valenbisi Fast tracker")
+    st.write("Con esta herramienta puede visualizar un HeatMap que representa la disponibilidad de Valenbicis en distintas zonas")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Check to display selector")
+    st.write("Si marca la casilla podra buscar estaciones de manera individual y consultar informacion mas detallada")
     map3 = folium.Map()
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
@@ -153,7 +155,7 @@ def mapita():
 
         heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
         HeatMap(heat_data, min_opacity=0.2, max_val=max(bicis['available']), gradient={0: 'red', 0.33: 'orange', 0.66: 'yellow', 1: 'green'}).add_to(map2)
-        st.title("Heatmap de Disponibilidad de Bicicletas en Valencia")
+        st.title("Disponibilidad Valenbici mediante HeatMap")
         colormap = cm.LinearColormap(colors=['red', 'orange', 'yellow', 'green'], 
                              vmin=min(bicis['available']), 
                              vmax=max(bicis['available']),
