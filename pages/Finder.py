@@ -34,30 +34,25 @@ def get_graph():
 
 
 request = requests.get('https://valencia.opendatasoft.com/api/records/1.0/search/?dataset=estat-transit-temps-real-estado-trafico-tiempo-real&q=&rows=376')
-st.write(request)
+
 
 def df_respuesta(response):
     p = []
     if response.status_code == 200:
         data = response.json()
-        records = data['records']
+        records = data['results']
         for record in records:
-            record_id = record['recordid']
-            fields = record['fields']
-            geometry = record['geometry']
-            ticket = fields['ticket']
-            geo_point_2d = fields['geo_point_2d']
-            open = fields['open']
-            total = fields['total']
-            number = fields['number']
-            free = fields['free']
-            available = fields['available']
-            address = fields['address']
-            geo_shape = fields['geo_shape']
-            p.append((record_id, geometry, ticket, geo_point_2d, open, total, number, free, available, address, geo_shape))
+            gid = record['gid']
+            denom = record['denominacion']
+            state = record['estado']
+            geo = record['geo_shape']
+            geom = geo['geometry']
+            coord = geom['coordinates']
+            
+            p.append((gid, denom, state, coord))
 
-        df = pd.DataFrame(p, columns = ('rocrd_id', 'geometry', 'ticket', 'geo_point_2d', 'open', 'total', 'number', 'free', 'available' , 'address', 'geo_shape'))
-        df[['Latitude', 'Longitude']] = df['geo_point_2d'].apply(pd.Series)
+        df = pd.DataFrame(p, columns = ('gid', 'denom', 'state', 'coord'))
+        
 
     
 
@@ -74,6 +69,7 @@ def get_icon_color(value):
 
     
 bicis = df_respuesta(request)
+st.write(bicis)
 oeste = bicis[['Latitude', 'Longitude']].min().values.tolist()
 este = bicis[['Latitude', 'Longitude']].max().values.tolist()
 
