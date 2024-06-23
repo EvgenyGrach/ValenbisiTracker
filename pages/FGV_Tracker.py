@@ -130,7 +130,8 @@ def show_third_page():
                 i = list(i)
                 nombre = i[0]
                 destino = i[1]
-                hora = i[2] - hora_actual_formateada
+                hora = i[2]
+                hora = hora - hora_actual_formateada
                 final.append((nombre, destino, hora))
             final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
                 
