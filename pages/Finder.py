@@ -76,13 +76,10 @@ trafico['state'] = trafico['state'].replace(recodificacion)
 
 st.write(trafico)
 
-trafico['geometry'] = trafico['coord'].apply(to_linestring)
-trafico = trafico[trafico['geometry'].notnull()]
-gdf = gpd.GeoDataFrame(trafico, geometry='coord')
+trafico['geometry'] = gpd.GeoSeries.from_wkt(trafico['coord'])
 
-# Convertir las geometrías a objetos shapely
-gdf['geometry'] = gpd.GeoSeries.from_wkt(gdf['geometry'])
-
+# Convertir a GeoDataFrame
+gdf = gpd.GeoDataFrame(trafico, geometry='geometry')
 # Crear un mapa centrado en un punto medio de los tramos
 map_center = gdf.geometry.unary_union.centroid
 
