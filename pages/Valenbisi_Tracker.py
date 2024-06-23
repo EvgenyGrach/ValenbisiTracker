@@ -149,7 +149,7 @@ def mapita():
         map2 = folium.Map(location=[39.4699, -0.3763], zoom_start=14)
         plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map2)
 
-        folium.GeoJson(y).add_to(map2)
+        #folium.GeoJson(y).add_to(map2)
 
         heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
         HeatMap(heat_data).add_to(map2)
