@@ -146,7 +146,7 @@ def mapita():
     
     if not permit:
         x, y = get_graph()
-        map2 = folium.Map(location=[39.4699, -0.3763], zoom_start=10)
+        map2 = folium.Map(location=[39.4699, -0.3763], zoom_start=13)
         plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map2)
 
         #folium.GeoJson(y).add_to(map2)
