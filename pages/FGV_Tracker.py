@@ -21,7 +21,7 @@ import polyline
 from bs4 import BeautifulSoup
 from streamlit_js_eval import streamlit_js_eval, copy_to_clipboard, create_share_link, get_geolocation
 from datetime import datetime
-
+import pytz
 
 st.set_page_config(page_title="FGV Tracker")
 req = requests.get('https://valencia.opendatasoft.com/api/records/1.0/search/?dataset=fgv-bocas&q=&rows=187')
@@ -51,6 +51,8 @@ def emt_vlc(response):
     df2[['Latitude', 'Longitude']] = df2['geo_point_2d'].apply(pd.Series)
     
     return df2
+
+zona_horaria_valencia = pytz.timezone('Europe/Madrid')
 
 estaciones = emt_vlc(req)
 ests = estaciones
@@ -129,7 +131,7 @@ def show_third_page():
             lines_selec = lines_selec[0]
             lines_selec = get_horarios(lines_selec)
             final = []
-            hora_actual = datetime.now().time()
+            hora_actual = datetime.now(zona_horaria_valencia)
             st.write(hora_actual)
             hora_actual_formateada = hora_actual.strftime("%H:%M:%S")
             hora_actual_formateada = convertir_a_datetime(hora_actual_formateada)
