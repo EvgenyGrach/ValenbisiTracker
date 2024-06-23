@@ -131,6 +131,7 @@ def show_third_page():
             final = []
             hora_actual = datetime.now().time()
             hora_actual_formateada = hora_actual.strftime("%H:%M:%S")
+            hora_actual_formateada = convertir_a_datetime(hora_actual_formateada)
             for i in lines_selec:
                 i = list(i)
                 nombre = i[0]
