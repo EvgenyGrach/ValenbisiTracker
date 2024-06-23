@@ -68,7 +68,7 @@ trafico = trafico[~trafico['state'].isin([4, 9])]
 recodificacion = {5: 0, 6: 1, 7: 2, 8: 3}
 trafico['state'] = trafico['state'].replace(recodificacion)
 
-
+st.write(trafico)
 
 def show_secondary_page():
     
