@@ -74,7 +74,7 @@ trafico = trafico[~trafico['state'].isin([4, 9])]
 recodificacion = {5: 0, 6: 1, 7: 2, 8: 3}
 trafico['state'] = trafico['state'].replace(recodificacion)
 
-st.write(trafico)
+
 
 def to_linestring(coords):
     if len(coords) > 1:
@@ -91,6 +91,13 @@ gdf = gpd.GeoDataFrame(df, geometry='geometry')
 map_center = gdf.geometry.unary_union.centroid
 
 def show_secondary_page():
+
+    st.title("Traffic intensity Visualizer")
+
+    st.write("______________________________________________")
+    st.write("Using this tool you can observe traffic-intense zones in Valencia")
+
+
 
     map2 = folium.Map(location=[map_center.y, map_center.x], zoom_start=12)
 
