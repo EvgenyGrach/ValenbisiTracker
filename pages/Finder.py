@@ -63,7 +63,6 @@ def df_respuesta(response):
 
     
 trafico = df_respuesta(request)
-st.write(trafico)
 trafico = trafico[~trafico['state'].isin([4, 9])]
 
 recodificacion = {5: 0, 6: 1, 7: 2, 8: 3}
@@ -73,80 +72,52 @@ trafico['state'] = trafico['state'].replace(recodificacion)
 
 def show_secondary_page():
     
-    st.title("Finder")
-    y = st.checkbox("Find me")
-    # Display the map
-    sub = st.text_input('Search for a Valenbisi Station ', key = 'user_search')
-    st.subheader("Least occupied stations")
-    bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available')]
-    bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    st.dataframe(bicis_full)
-    if not sub:
-        x, y = get_graph()
-        map2 = folium.Map()
-        map2.fit_bounds([oeste, este])
-        plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map2)
+    gdf = gpd.GeoDataFrame(trafico, geometry='coord')
 
-        folium.GeoJson(y).add_to(map2)
+# Convertir las geometrías a objetos shapely
+    gdf['geometry'] = gpd.GeoSeries.from_wkt(gdf['geometry'])
 
-        for _, row in bicis.iterrows():
-            tooltip_txt = f"""
-            <span style="font-weight:bold;">Dirección:</span> {row['address']}<br>
-            <span style="font-weight:bold;">Total:</span> {row['total']}<br>
-            <span style="font-weight:bold;">Disponibles:</span> {row['available']}
-            """
-            icon_color = get_icon_color(row['available'])
-            if row['available'] > 0:
-               folium.Marker(
-                   location=[row['geo_point_2d'][0], row['geo_point_2d'][1]],
-                   tooltip=tooltip_txt,
-                   fill_color = "red",
-                   icon=folium.Icon(color=icon_color, icon_color='#FFFF00')
-               ).add_to(map2)
-            else: pass
-        folium_static(map2)
+# Crear un mapa centrado en un punto medio de los tramos
+    map_center = gdf.geometry.unary_union.centroid
+    map2 = folium.Map(location=[map_center.y, map_center.x], zoom_start=12)
 
-    
-    elif sub and y:
+# Definir una función para asignar colores según el valor de 'state'
+    def get_color(state):
+        if state == 0:
+            return 'green'
+        elif state == 1:
+            return 'yellow'
+        elif state == 2:
+            return 'orange'
+        elif state == 3:
+            return 'red'
 
-        x, y = get_graph()
-        map = folium.Map()
-        map.fit_bounds([oeste, este])
-        plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map)
-        loc = get_geolocation()
-        latc = loc['coords']['latitude']
-        longc = loc['coords']['longitude']
-        folium.GeoJson(y).add_to(map)
-        z = reverse_geocode(latc, longc)
-        st.write(f"You're close to:  {z}")
-        if sub:
-            nam = search_location(sub)
-            nam = list(nam)
-            z, g, h = nam
-            if g and h != None:
-                st.success("Location found!")
-                st.write("Estacion: ", nam[0])
-                map = folium.Map()
-                lati = g
-                longi = h
-                map.fit_bounds([[latc, longc], [lati, longi]])
+# Añadir los tramos al mapa
+    for _, row in gdf.iterrows():
+        folium.GeoJson(
+            row['geometry'],
+            style_function=lambda x, state=row['state']: {'color': get_color(state)}
+        ).add_to(map2)
 
-                folium.Marker(location=[latc, longc], tooltip = "We found you!", icon = folium.Icon(color = "black", icon_color = '#FFFFFFF')).add_to(map)
-                folium.Marker(location=[lati, longi], tooltip = "Your Destination ", icon = folium.Icon(color = "black", icon_color = '#00FFFF')).add_to(map)
+# Añadir una leyenda al mapa
+    legend_html = '''
+       <div style="position: fixed; 
+                 bottom: 50px; left: 50px; width: 200px; height: 150px; 
+                 border:2px solid grey; z-index:9999; font-size:14px;
+                 background-color:white;
+                  ">
+     &nbsp; <b>Legend</b> <br>
+     &nbsp; 0: <i class="fa fa-circle" style="color:green"></i> Low <br>
+     &nbsp; 1: <i class="fa fa-circle" style="color:yellow"></i> Medium <br>
+     &nbsp; 2: <i class="fa fa-circle" style="color:orange"></i> High <br>
+     &nbsp; 3: <i class="fa fa-circle" style="color:red"></i> Very High <br>
+     </div>
+     '''
+    map2.get_root().html.add_child(folium.Element(legend_html))
 
-                route_geometry = get_route_geometry(latc, longc, lati, longi)
-                gh = []
-                for i,n in route_geometry:
-                    gh.append([n,i])
-                linea = folium.PolyLine([gh], color = 'red', weight = 3)
-                linea.add_to(map)
-            
-            else:
-                st.write("no hemos encontrado na")
-                st.error("Location not found.")
-        
-        folium_static(map)
-        map.fit_bounds([[latc, longc], [lati, longi]])
+# Mostrar el mapa en la aplicación Streamlit
+    st.title("Heatmap de Tramos de Tráfico en Tiempo Real")
+    folium_static(map2, width=700, height=500)
         
         
 
