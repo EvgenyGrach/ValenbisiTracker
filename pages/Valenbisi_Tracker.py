@@ -111,7 +111,7 @@ def mapita():
     st.write("Con esta herramienta puede visualizar un HeatMap que representa la disponibilidad de Valenbicis en distintas zonas")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    permit = st.checkbox("Check to display selector")
+    permit = st.checkbox("Buscar una estación")
     st.write("Si marca la casilla podra buscar estaciones de manera individual y consultar informacion mas detallada")
     map3 = folium.Map()
     if permit:
