@@ -141,7 +141,6 @@ def show_third_page():
                 destino = i[1]
                 hora = i[2]
                 hora = convertir_a_datetime(hora)
-                st.write(hora, hora_actual_formateada)
                 hora = hora_actual_formateada - hora
                 
                 final.append((nombre, destino, hora))
