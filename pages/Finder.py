@@ -40,6 +40,7 @@ def df_respuesta(response):
     p = []
     if response.status_code == 200:
         data = response.json()
+        st.write(data)
         records = data['records']
         for record in records:
             fields = record['fields']
