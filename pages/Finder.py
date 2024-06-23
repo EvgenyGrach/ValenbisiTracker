@@ -47,7 +47,8 @@ def df_respuesta(response):
             gid = fields['gid']
             denom = fields['denominacion']
             geo = fields['geo_shape']
-            coord = geo['geometry']
+            geom = geo['geometry']
+            coord = geom['coordinates']
            
             
             p.append((gid, denom, state, coord))
