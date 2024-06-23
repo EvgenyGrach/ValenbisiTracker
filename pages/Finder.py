@@ -47,7 +47,7 @@ def df_respuesta(response):
             gid = fields['gid']
             denom = fields['denominacion']
             geo = fields['geo_shape']
-            coord = geo['coordinates'][0]
+            coord = geo['geometry']
            
             
             p.append((gid, denom, state, coord))
@@ -72,7 +72,7 @@ trafico['state'] = trafico['state'].replace(recodificacion)
 
 def show_secondary_page():
     
-    gdf = gpd.GeoDataFrame(trafico, geometry='coord')
+    gdf = gpd.GeoDataFrame(trafico, geometry='geometry')
 
 # Convertir las geometrías a objetos shapely
     gdf['geometry'] = gpd.GeoSeries.from_wkt(gdf['geometry'])
