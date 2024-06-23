@@ -75,12 +75,19 @@ recodificacion = {5: 0, 6: 1, 7: 2, 8: 3}
 trafico['state'] = trafico['state'].replace(recodificacion)
 
 st.write(trafico)
-trafico['coords'] = str(trafico['coord'])
-trafico['geometry'] = gpd.GeoSeries.from_wkt(trafico['coord'])
+
+def to_linestring(coords):
+    if len(coords) > 1:
+        return LineString(coords)
+    return None  # Si hay menos de dos puntos, no puede ser una línea
+
+trafico['geometry'] = trafico['coord'].apply(to_linestring)
+
+# Filtrar filas con geometrías válidas (no None)
+df = trafico[trafico['geometry'].notnull()]
 
 # Convertir a GeoDataFrame
-gdf = gpd.GeoDataFrame(trafico, geometry='geometry')
-# Crear un mapa centrado en un punto medio de los tramos
+gdf = gpd.GeoDataFrame(df, geometry='geometry')
 map_center = gdf.geometry.unary_union.centroid
 
 def show_secondary_page():
