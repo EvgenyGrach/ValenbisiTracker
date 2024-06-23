@@ -136,7 +136,7 @@ def show_secondary_page():
     map2.get_root().html.add_child(folium.Element(legend_html))
 
 # Mostrar el mapa en la aplicación Streamlit
-    st.title("Heatmap de Tramos de Tráfico en Tiempo Real")
+    st.subheader("Legend")
     folium_static(map2, width=700, height=500)
         
         
