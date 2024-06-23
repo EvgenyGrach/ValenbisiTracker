@@ -141,6 +141,7 @@ def show_third_page():
             st.write("Station: ", z)
             
             
+            st.write("in the next table you can see the scheduled metros")
             st.dataframe(final_est)
 
             
@@ -163,7 +164,8 @@ def show_third_page():
                         
                       
                 folium_static(map6)
-                  
+            
+            
             else:
                t = f"""
                    <span style="font-weight:bold;">Station Map</span>
