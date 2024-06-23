@@ -74,16 +74,7 @@ bicis = df_respuesta(request)
 oeste = bicis[['Latitude', 'Longitude']].min().values.tolist()
 este = bicis[['Latitude', 'Longitude']].max().values.tolist()
 
-
-def get_user_location():
-    g = geocoder.ip('me')
-    if g.latlng:
-        latitude, longitude = g.latlng
-        return latitude, longitude
-    else:
-        return None, None
     
-
 def reverse_geocode(latitude, longitude):
     g = geocoder.osm([latitude, longitude], method='reverse')
     if g.ok:

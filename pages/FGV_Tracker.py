@@ -98,80 +98,9 @@ def search_location(name):
 
 def show_third_page():
     st.title("Find your FGV station")
-    st.write("Location is needed in order to display a route")
-    if st.checkbox("Find me"):
-        loc = get_geolocation()
-        latc = loc['coords']['latitude']
-        longc = loc['coords']['longitude']
-        z = reverse_geocode(latc, longc)
-        st.write(f"Your position is {z}")
-        text = st.text_input("Search for a station :", key = 'user_input')
-        if not text:
-            map5 = folium.Map()
-            for _, row in estaciones.iterrows():
-                folium.Marker(
-                    location = [row['Latitude'], row['Longitude']],
-                    tooltip=row['nombre'],
-                    icon=folium.Icon(color = 'red')
-                ).add_to(map5)
-            map5.fit_bounds([oeste, este])
-            folium_static(map5)
-            
-        else:
-            map6 = folium.Map()
-            plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map6)
-            if text:
-                nam = search_location(text)
-                nam = list(nam)
-                z, g, h, horas = nam
-                est_selec = estaciones.loc[(estaciones['nombre'] == z), ('nombre', 'lineas' )]
-                lines_selec = list(estaciones.loc[(estaciones['nombre'] == z), ('prox_llegadas')])
-                lines_selec = lines_selec[0]
-                lines_selec = get_horarios(lines_selec)
-                final = []
-                for i in lines_selec:
-                    i = list(i)
-                    nombre = i[0]
-                    destino = i[1]
-                    hora = i[2]
-                    final.append((nombre, destino, hora))
-                final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
-                
-                st.success("Station found!")
-                st.write("Station: ", z)
-                if g and h != None:
-                    horario = get_horarios(horas)
-                    for i in horario:
-                        linea = i[0]
-                        destino = i[1]
-                        salida = i[2]
-                        tlp_txt = f"""
-                        <span style="font-weight:bold;">Estacion:</span> {z}<br>
-                        <span style="font-weight:bold;">Linea:</span> {linea}<br>
-                        <span style="font-weight:bold;">Destino:</span> {destino}<br>
-                        <span style="font-weight:bold;">H. Salida:</span> {salida}
-                        """
-
-                        lati, longi = g, h
-                        folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
-                        folium.Marker(location=[latc, longc], tooltip = "Su ubicacion", icon = folium.Icon(color='blue')).add_to(map6)
-                        if latc and longc != None:
-                            route_geometry = get_route_geometry(latc, longc, lati, longi)
-                            geom = []
-                            for i, n in route_geometry:
-                                geom.append([n,i])
-                                linea = folium.PolyLine([geom], color = 'red', weight = 3)
-                                linea.add_to(map6)
-                    map6.fit_bounds([oeste, este])    
-                folium_static(map6)
-                c1, c2 = st.columns(2)
-                c1.dataframe(est_selec)
-                c2.dataframe(final_est)  
-    else:
-        t = f"""
-        <span style="font-weight:bold;">Station Map</span>
-        """
-        st.write(t, unsafe_allow_html=True)
+    
+    text = st.text_input("Search for a station :", key = 'user_input')
+    if not text:
         map5 = folium.Map()
         for _, row in estaciones.iterrows():
             folium.Marker(
@@ -179,8 +108,67 @@ def show_third_page():
                 tooltip=row['nombre'],
                 icon=folium.Icon(color = 'red')
             ).add_to(map5)
-            map5.fit_bounds([oeste, este])
+        map5.fit_bounds([oeste, este])
         folium_static(map5)
+            
+    else:
+        map6 = folium.Map()
+        plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map6)
+        if text:
+            nam = search_location(text)
+            nam = list(nam)
+            z, g, h, horas = nam
+            est_selec = estaciones.loc[(estaciones['nombre'] == z), ('nombre', 'lineas' )]
+            lines_selec = list(estaciones.loc[(estaciones['nombre'] == z), ('prox_llegadas')])
+            lines_selec = lines_selec[0]
+            lines_selec = get_horarios(lines_selec)
+            final = []
+            for i in lines_selec:
+                i = list(i)
+                nombre = i[0]
+                destino = i[1]
+                hora = i[2]
+                final.append((nombre, destino, hora))
+            final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
+                
+            st.success("Station found!")
+            st.write("Station: ", z)
+            if g and h != None:
+                horario = get_horarios(horas)
+                for i in horario:
+                    linea = i[0]
+                    destino = i[1]
+                    salida = i[2]
+                    tlp_txt = f"""
+                    <span style="font-weight:bold;">Estacion:</span> {z}<br>
+                    <span style="font-weight:bold;">Linea:</span> {linea}<br>
+                    <span style="font-weight:bold;">Destino:</span> {destino}<br>
+                    <span style="font-weight:bold;">H. Salida:</span> {salida}
+                    """
+
+                    lati, longi = g, h
+                    folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
+                        
+                        
+                    map6.fit_bounds([oeste, este])    
+                folium_static(map6)
+                c1, c2 = st.columns(2)
+                c1.dataframe(est_selec)
+                c2.dataframe(final_est)  
+            else:
+                t = f"""
+                    <span style="font-weight:bold;">Station Map</span>
+                    """
+                st.write(t, unsafe_allow_html=True)
+                map5 = folium.Map()
+                for _, row in estaciones.iterrows():
+                    folium.Marker(
+                location = [row['Latitude'], row['Longitude']],
+                tooltip=row['nombre'],
+                icon=folium.Icon(color = 'red')
+                ).add_to(map5)
+                map5.fit_bounds([oeste, este])
+                folium_static(map5)
 
 
 
