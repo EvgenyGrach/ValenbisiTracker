@@ -1,7 +1,5 @@
 import streamlit as st
-from pages.Valenbisi_Tracker import mapita
-from pages.FGV_Tracker import show_third_page
-from pages.Finder import show_secondary_page
+
 
 st.set_page_config(
     page_title="FGV/Valenbisi Tracker",
