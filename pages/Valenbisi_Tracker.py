@@ -108,11 +108,11 @@ def search_location(name):
 
 def mapita():
     st.title("Valenbisi Fast tracker")
-    st.write("Con esta herramienta puede visualizar un HeatMap que representa la disponibilidad de Valenbicis en distintas zonas")
+    st.write("With this tool you'll be able to visualize a Valenbici availability HeatMap")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
     permit = st.checkbox("Buscar una estación")
-    st.write("Si marca la casilla podra buscar estaciones de manera individual y consultar informacion mas detallada")
+    st.write("If you would rather search for a specific station click here")
     map3 = folium.Map(location=[39.4699, -0.3763], zoom_start=12)
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
