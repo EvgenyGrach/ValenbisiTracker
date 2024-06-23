@@ -97,11 +97,11 @@ def show_secondary_page():
 # Definir una función para asignar colores según el valor de 'state'
     def get_color(state):
         if state == 0:
-            return 'green'
+            return 'blue'
         elif state == 1:
-            return 'yellow'
+            return 'green'
         elif state == 2:
-            return 'orange'
+            return 'yellow'
         elif state == 3:
             return 'red'
 
