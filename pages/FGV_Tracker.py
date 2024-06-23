@@ -54,11 +54,6 @@ def emt_vlc(response):
 
 zona_horaria_valencia = pytz.timezone('Europe/Madrid')
 
-estaciones = emt_vlc(req)
-ests = estaciones
-oeste = estaciones[['Latitude', 'Longitude']].min().values.tolist()
-este = estaciones[['Latitude', 'Longitude']].max().values.tolist()
-
 @st.cache_data
 def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
     url = f"http://router.project-osrm.org/route/v1/driving/{st_lng},{st_lat};{dest_lng},{dest_lat}?overview=full&geometries=geojson"
@@ -106,6 +101,10 @@ def convertir_a_datetime(hora_str):
 
 def show_third_page():
     st.title("Find your FGV station")
+    estaciones = emt_vlc(req)
+    ests = estaciones
+    oeste = estaciones[['Latitude', 'Longitude']].min().values.tolist()
+    este = estaciones[['Latitude', 'Longitude']].max().values.tolist()
     
     text = st.text_input("Search for a station :", key = 'user_input')
     if not text:
