@@ -75,7 +75,7 @@ recodificacion = {5: 0, 6: 1, 7: 2, 8: 3}
 trafico['state'] = trafico['state'].replace(recodificacion)
 
 st.write(trafico)
-
+trafico['coords'] = str(trafico['coord'])
 trafico['geometry'] = gpd.GeoSeries.from_wkt(trafico['coord'])
 
 # Convertir a GeoDataFrame
