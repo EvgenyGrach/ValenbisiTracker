@@ -141,8 +141,9 @@ def show_third_page():
                 destino = i[1]
                 hora = i[2]
                 hora = convertir_a_datetime(hora)
+                st.write(hora, hora_actual_formateada)
                 hora = hora - hora_actual_formateada
-                st.write(hora)
+                
                 final.append((nombre, destino, hora))
             final_est = pd.DataFrame(final, columns =('Linea', 'Destino', 'Hora'))
             
