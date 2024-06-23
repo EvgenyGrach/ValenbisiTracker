@@ -107,7 +107,7 @@ def search_location(name):
 
 
 def mapita():
-    st.title("Valenbisi Fast tracker")
+    st.title("Valenbisi Fast Tracker")
     st.write("With this tool you'll be able to visualize a Valenbici availability HeatMap")
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
@@ -153,7 +153,7 @@ def mapita():
 
         heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
         HeatMap(heat_data, min_opacity=0.2, max_val=max(bicis['available']), gradient={0: 'red', 0.33: 'orange', 0.66: 'yellow', 1: 'green'}).add_to(map2)
-        st.subheader("Disponibilidad Valenbici mediante HeatMap")
+        st.subheader("Valenbici Avalability HeatMap")
         colormap = cm.LinearColormap(colors=['red', 'orange', 'yellow', 'green'], 
                              vmin=min(bicis['available']), 
                              vmax=max(bicis['available']),
