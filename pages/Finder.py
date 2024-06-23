@@ -72,7 +72,7 @@ trafico['state'] = trafico['state'].replace(recodificacion)
 st.write(trafico)
 
 def show_secondary_page():
-    
+    trafico['geometry'] = trafico['coord'].apply(LineString)
     gdf = gpd.GeoDataFrame(trafico, geometry='coord')
 
 # Convertir las geometrías a objetos shapely
