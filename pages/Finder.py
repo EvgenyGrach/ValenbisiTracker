@@ -40,7 +40,6 @@ def df_respuesta(response):
     p = []
     if response.status_code == 200:
         data = response.json()
-        st.write(data)
         records = data['records']
         for record in records:
             fields = record['fields']
@@ -49,7 +48,7 @@ def df_respuesta(response):
             denom = fields['denominacion']
             geo = fields['geo_shape']
             coord = geo['coordinates']
-            
+            st.write(coord)
            
             
             p.append((gid, denom, state, coord))
