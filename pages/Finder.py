@@ -60,58 +60,14 @@ def df_respuesta(response):
         return df
     
 
-def get_icon_color(value):
-    if value < 5:
-        return 'red'
-    elif value > 15:
-        return 'blue'
-    else:
-        return 'green'
 
     
-bicis = df_respuesta(request)
-st.write(bicis)
-oeste = bicis[['Latitude', 'Longitude']].min().values.tolist()
-este = bicis[['Latitude', 'Longitude']].max().values.tolist()
+trafico = df_respuesta(request)
+st.write(trafico)
+trafico = trafico[~trafico['state'].isin([4, 9])]
 
-
-def get_user_location():
-    g = geocoder.ip('me')
-    if g.latlng:
-        latitude, longitude = g.latlng
-        return latitude, longitude
-    else:
-        return None, None
-    
-
-def reverse_geocode(latitude, longitude):
-    g = geocoder.osm([latitude, longitude], method='reverse')
-    if g.ok:
-        return g.address
-    else:
-        return None
-    
-
-@st.cache_data
-def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
-    url = f"http://router.project-osrm.org/route/v1/driving/{st_lng},{st_lat};{dest_lng},{dest_lat}?overview=full&geometries=geojson"
-    response = requests.get(url)
-    data = response.json()
-    if data["code"] == "Ok":
-        geometry = list(data["routes"][0]["geometry"]['coordinates'])
-        return geometry
-    else:
-        return []
-
-def search_location(name):
-    best_match = process.extractOne(name, bicis['address'], scorer=fuzz.ratio)
-    if best_match is not None:
-        closest_name = best_match[0]
-        closest_row = bicis[bicis['address'] == closest_name].iloc[0]
-        name, lat, long = closest_row['address'], closest_row['Latitude'], closest_row['Longitude']
-        return name, lat, long
-    else: 
-        return None
+recodificacion = {5: 0, 6: 1, 7: 2, 8: 3}
+trafico['state'] = trafico['state'].replace(recodificacion)
 
 
 
