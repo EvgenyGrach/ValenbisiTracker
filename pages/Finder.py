@@ -40,7 +40,6 @@ def df_respuesta(response):
     p = []
     if response.status_code == 200:
         data = response.json()
-        st.write(data)
         records = data['records']
         for record in records:
             fields = record['fields']
@@ -74,7 +73,7 @@ st.write(trafico)
 
 def show_secondary_page():
     
-    gdf = gpd.GeoDataFrame(trafico, geometry='geometry')
+    gdf = gpd.GeoDataFrame(trafico, geometry='coord')
 
 # Convertir las geometrías a objetos shapely
     gdf['geometry'] = gpd.GeoSeries.from_wkt(gdf['geometry'])
