@@ -7,19 +7,19 @@ st.set_page_config(
 )
 st.title("FGV/Valenbisi Fast Tracker")
 f = f"""
-    <span style="font-weight:bold;">Real Time information on FGV and Valenbisi Stations</span>
+    <span style="font-weight:bold;">Real Time information on Metro Valencia and Valenbici Stations</span>
     """
 
 st.write(f, unsafe_allow_html=True)
 st.write("__________________________________________________________________________________")
 
 f = f"""
-    <span style="font-weight:bold;">Check info on FGV Stations at</span><br>
+    <span style="font-weight:bold;">Check info on Metro Valencia at</span><br>
     <span> FGV Tracker</span>
     """
 
 c = f"""
-    <span style="font-weight:bold;">Check info on Valenbisi at</span><br>
+    <span style="font-weight:bold;">Check info on Valenbici at</span><br>
     <span> Valenbisi Tracker</span>
     """
 col1, col2 = st.columns(2)
