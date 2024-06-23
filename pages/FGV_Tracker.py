@@ -148,8 +148,8 @@ def show_third_page():
             st.success("Station found!")
             st.write("Station: ", z)
             c1, c2 = st.columns(2)
-            c1.dataframe(est_selec)
-            c2.dataframe(final_est)
+            
+            c1.dataframe(final_est)
             if g and h != None:
                 horario = get_horarios(horas)
                 for i in horario:
@@ -168,7 +168,7 @@ def show_third_page():
                         
                         
                     map6.fit_bounds([oeste, este])    
-                folium_static(map6)
+                c2.folium_static(map6)
                   
             else:
                 t = f"""
