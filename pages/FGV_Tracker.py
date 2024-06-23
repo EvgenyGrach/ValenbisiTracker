@@ -109,18 +109,18 @@ def show_third_page():
     
     text = st.text_input("Search for a station :", key = 'user_input')
     if not text:
-        map5 = folium.Map()
+        map5 = folium.Map(location=[39.4699, -0.3763], zoom_start=20)
         for _, row in estaciones.iterrows():
             folium.Marker(
                 location = [row['Latitude'], row['Longitude']],
                 tooltip=row['nombre'],
                 icon=folium.Icon(color = 'red')
             ).add_to(map5)
-        map5.fit_bounds([oeste, este])
+        
         folium_static(map5)
             
     else:
-        map6 = folium.Map()
+        map6 = folium.Map(location=[39.4699, -0.3763], zoom_start=20)
         plugins.LocateControl(strings={"title": "See your current location", "popup": "Your position"}).add_to(map6)
         if text:
             nam = search_location(text)
@@ -176,7 +176,7 @@ def show_third_page():
                    <span style="font-weight:bold;">Station Map</span>
                    """
                st.write(t, unsafe_allow_html=True)
-               map5 = folium.Map()
+               map5 = folium.Map(location=[39.4699, -0.3763], zoom_start=20)
                for _, row in estaciones.iterrows():
                    folium.Marker(
                location = [row['Latitude'], row['Longitude']],
