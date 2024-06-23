@@ -154,7 +154,7 @@ def mapita():
         heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
         HeatMap(heat_data).add_to(map2)
         st.title("Heatmap de Disponibilidad de Bicicletas en Valencia")
-        colormap = cm.LinearColormap(colors=['red', 'orange', 'yellow', 'green' 'green'], 
+        colormap = cm.LinearColormap(colors=['red', 'orange', 'yellow', 'green'], 
                              vmin=min(bicis['available']), 
                              vmax=max(bicis['available']),
                              caption='Disponibilidad de bicicletas')
