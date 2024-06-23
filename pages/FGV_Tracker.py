@@ -58,16 +58,7 @@ estaciones = emt_vlc(req)
 ests = estaciones
 
 
-@st.cache_data
-def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
-    url = f"http://router.project-osrm.org/route/v1/driving/{st_lng},{st_lat};{dest_lng},{dest_lat}?overview=full&geometries=geojson"
-    response = requests.get(url)
-    data = response.json()
-    if data["code"] == "Ok":
-        geometry = list(data["routes"][0]["geometry"]['coordinates'])
-        return geometry
-    else:
-        return []
+
     
 
 
