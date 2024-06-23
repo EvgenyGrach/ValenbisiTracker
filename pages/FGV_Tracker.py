@@ -150,40 +150,42 @@ def show_third_page():
             c1, c2 = st.columns(2)
             
             c1.dataframe(final_est)
-            if g and h != None:
-                horario = get_horarios(horas)
-                for i in horario:
-                    linea = i[0]
-                    destino = i[1]
-                    salida = i[2]
-                    tlp_txt = f"""
-                    <span style="font-weight:bold;">Estacion:</span> {z}<br>
-                    <span style="font-weight:bold;">Linea:</span> {linea}<br>
-                    <span style="font-weight:bold;">Destino:</span> {destino}<br>
-                    <span style="font-weight:bold;">H. Salida:</span> {salida}
-                    """
 
-                    lati, longi = g, h
-                    folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
+            with c2:
+                if g and h != None:
+                    horario = get_horarios(horas)
+                    for i in horario:
+                       linea = i[0]
+                       destino = i[1]
+                       salida = i[2]
+                       tlp_txt = f"""
+                       <span style="font-weight:bold;">Estacion:</span> {z}<br>
+                       <span style="font-weight:bold;">Linea:</span> {linea}<br>
+                       <span style="font-weight:bold;">Destino:</span> {destino}<br>
+                       <span style="font-weight:bold;">H. Salida:</span> {salida}
+                       """
+
+                       lati, longi = g, h
+                       folium.Marker(location= [lati, longi], tooltip = tlp_txt, icon = folium.Icon(color = "black")).add_to(map6)
                         
                         
-                    map6.fit_bounds([oeste, este])    
-                c2.folium_static(map6)
+                       map6.fit_bounds([oeste, este])    
+                    folium_static(map6)
                   
-            else:
-                t = f"""
-                    <span style="font-weight:bold;">Station Map</span>
-                    """
-                st.write(t, unsafe_allow_html=True)
-                map5 = folium.Map()
-                for _, row in estaciones.iterrows():
-                    folium.Marker(
-                location = [row['Latitude'], row['Longitude']],
-                tooltip=row['nombre'],
-                icon=folium.Icon(color = 'red')
-                ).add_to(map5)
-                map5.fit_bounds([oeste, este])
-                folium_static(map5)
+        else:
+            t = f"""
+                <span style="font-weight:bold;">Station Map</span>
+                """
+            st.write(t, unsafe_allow_html=True)
+            map5 = folium.Map()
+            for _, row in estaciones.iterrows():
+                folium.Marker(
+            location = [row['Latitude'], row['Longitude']],
+            tooltip=row['nombre'],
+            icon=folium.Icon(color = 'red')
+            ).add_to(map5)
+            map5.fit_bounds([oeste, este])
+            folium_static(map5)
 
 
 
