@@ -130,6 +130,7 @@ def show_third_page():
             lines_selec = get_horarios(lines_selec)
             final = []
             hora_actual = datetime.now().time()
+            st.write(hora_actual)
             hora_actual_formateada = hora_actual.strftime("%H:%M:%S")
             hora_actual_formateada = convertir_a_datetime(hora_actual_formateada)
             for i in lines_selec:
