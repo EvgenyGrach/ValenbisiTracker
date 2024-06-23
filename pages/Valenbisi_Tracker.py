@@ -152,7 +152,7 @@ def mapita():
         #folium.GeoJson(y).add_to(map2)
 
         heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
-        HeatMap(heat_data).add_to(map2)
+        HeatMap(heat_data, min_opacity=0.2, max_val=max(bicis['available']), gradient={0: 'red', 0.33: 'orange', 0.66: 'yellow', 1: 'green'}).add_to(map2)
         st.title("Heatmap de Disponibilidad de Bicicletas en Valencia")
         colormap = cm.LinearColormap(colors=['red', 'orange', 'yellow', 'green'], 
                              vmin=min(bicis['available']), 
