@@ -70,7 +70,7 @@ def get_route_geometry(st_lat, st_lng, dest_lat, dest_lng):
         return []
     
 
-@st.cache_data
+
 def get_horarios(str):
     horario = requests.get(str)
     if horario.status_code == 200:
