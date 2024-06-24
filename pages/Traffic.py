@@ -137,6 +137,8 @@ def show_secondary_page():
 
 # Mostrar el mapa en la aplicación Streamlit
     st.subheader("Legend")
+
+    st.write("Blue indicates fluid traffic, Green indicates a dense traffic situation, Yellow is a congested traffic situation, Red stands for closed street")
     folium_static(map2, width=700, height=500)
         
         
