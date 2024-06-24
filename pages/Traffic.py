@@ -139,6 +139,7 @@ def show_secondary_page():
     st.subheader("Legend")
 
     st.write("Blue indicates fluid traffic, Green indicates a dense traffic situation, Yellow is a congested traffic situation, Red stands for closed street")
+    st.write("__________________________________________________________")
     folium_static(map2, width=700, height=500)
         
         
