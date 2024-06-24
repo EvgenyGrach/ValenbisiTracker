@@ -30,7 +30,7 @@ with col2:
     st.write(c, unsafe_allow_html=True)
 
 g = f"""
-    <span style="font-weight:bold;">Check real-time inormation on traffic density</span><br>
+    <span style="font-weight:bold;">Check real-time information on traffic density</span><br>
     <span> Just select Traffic</span>
     """
 st.write(g, unsafe_allow_html=True)
