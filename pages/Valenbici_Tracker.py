@@ -111,7 +111,7 @@ def mapita():
     este = bicis[['Latitude', 'Longitude']].max().values.tolist()
     bicis_full = bicis.loc[(bicis['available'] >= 15), ('address', 'open', 'ticket', 'total', 'available', 'Latitude', 'Longitude')]
     bicis_full = bicis_full.sort_values('available', ascending = False).reset_index(drop = True)
-    permit = st.checkbox("You can also search a specific station if you click here")
+    permit = st.checkbox("You can also search for a specific station if you click here")
     map3 = folium.Map(location=[39.4699, -0.3763], zoom_start=12)
     if permit:
         selected_location = st.selectbox('Select a station', bicis_full['address'])
@@ -154,6 +154,7 @@ def mapita():
         heat_data = [[row['Latitude'], row['Longitude'], row['available']] for index, row in bicis.iterrows()]
         HeatMap(heat_data, min_opacity=0.2, max_val=max(bicis['available']), gradient={0: 'red', 0.33: 'orange', 0.66: 'yellow', 1: 'green'}).add_to(map2)
         st.subheader("Valenbici Avalability HeatMap")
+        st.write("Check for the zones with a higher chance of finding an unoccupied bike")
         colormap = cm.LinearColormap(colors=['red', 'orange', 'yellow', 'green'], 
                              vmin=min(bicis['available']), 
                              vmax=max(bicis['available']),
