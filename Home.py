@@ -20,7 +20,7 @@ f = f"""
 
 c = f"""
     <span style="font-weight:bold;">Check info on Valenbici at</span><br>
-    <span> Valenbisi Tracker</span>
+    <span> Valenbici Tracker</span>
     """
 col1, col2 = st.columns(2)
 with col1:

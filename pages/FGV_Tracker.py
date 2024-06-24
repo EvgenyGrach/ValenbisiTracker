@@ -96,6 +96,8 @@ def convertir_a_datetime(hora_str):
 
 def show_third_page():
     st.title("Find your Metro Valencia station")
+    st.write("___________________________________________________")
+    st.write("With this tool you'll be able to seach for any Metro Valencia station")
     estaciones = emt_vlc(req)
     ests = estaciones
    
