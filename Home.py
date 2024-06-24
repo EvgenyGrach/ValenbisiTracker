@@ -5,9 +5,9 @@ st.set_page_config(
     page_title="FGV/Valenbisi Tracker",
     page_icon="👋"
 )
-st.title("FGV/Valenbisi Fast Tracker")
+st.title("FGV/Valenbici/Traffic Fast Tracker")
 f = f"""
-    <span style="font-weight:bold;">Real Time information on Metro Valencia and Valenbici Stations</span>
+    <span style="font-weight:bold;">Real Time information on Metro Valencia, Valenbici Stations and Traffic Intensity</span>
     """
 
 st.write(f, unsafe_allow_html=True)
